@@ -5,7 +5,8 @@ using UnityEngine;
 public class InteractController : MonoBehaviour {
 
     public float activationDistance;
-    // Update is called once per frame
+    public GameObject myUI;
+
     void Update() {
 
         if (Input.GetKeyDown(KeyCode.E)) {
@@ -13,7 +14,16 @@ public class InteractController : MonoBehaviour {
             if (Physics.Raycast(transform.position, transform.forward, out hit, activationDistance)) {
                 Talkable tk = hit.collider.gameObject.GetComponent<Talkable>();
                 if (tk != null) {
-                    tk.interact();
+                    tk.Interact();
+                    PlayerController pc = GetComponent<PlayerController>();
+                    if (!pc.isTalking) {
+                        pc.isTalking = true;
+                        myUI.SetActive(true);
+                    }
+                    else {
+                        pc.isTalking = false;
+                        myUI.SetActive(false);
+                    }
                 }                    
             }
         }

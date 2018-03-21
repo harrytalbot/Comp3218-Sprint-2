@@ -10,59 +10,22 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 
     private bool isGrounded;
-	private bool isPlatformed;
+    public bool isTalking;
 
     public Vector3 checkpoint = new Vector3(0f, 0f, 0f);
 
     void Awake() {
 		rb = GetComponent<Rigidbody> ();
-		Cursor.lockState = CursorLockMode.Locked;
 	}
 
     void OnCollisionEnter(Collision other) {
-        /*if (other.gameObject.tag == "Platform") {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, -Vector3.up, out hit)) {
-                if (hit.collider.gameObject.Equals(other.gameObject)) {
-                    isPlatformed = true;
-                    return;
-                }
-            }
-            if (Physics.Raycast(new Vector3(transform.position.x + 0.25f, transform.position.y, transform.position.z), -Vector3.up, out hit)) {
-                if (hit.collider.gameObject.Equals(other.gameObject)) {
-                    isPlatformed = true;
-                    return;
-                }
-            }
-            if (Physics.Raycast(new Vector3(transform.position.x - 0.25f, transform.position.y, transform.position.z), -Vector3.up, out hit)) {
-                if (hit.collider.gameObject.Equals(other.gameObject)) {
-                    isPlatformed = true;
-                    return;
-                }
-            }
-            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.25f), -Vector3.up, out hit)) {
-                if (hit.collider.gameObject.Equals(other.gameObject)) {
-                    isPlatformed = true;
-                    return;
-                }
-            }
-            if (Physics.Raycast(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z - 0.25f), -Vector3.up, out hit)) {
-                if (hit.collider.gameObject.Equals(other.gameObject)) {
-                    isPlatformed = true;
-                    return;
-                }
-            }
-        }
-        else if (other.gameObject.tag == "Reset Floor") {
-            transform.position = checkpoint;
-        }*/
         if (other.gameObject.tag == "Ground") {
             isGrounded = true;
         }
     }
 
     private void OnCollisionStay(Collision collision) {
-        if (!(isGrounded || isPlatformed) && (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Platform")) {
+        if (!(isGrounded) && (collision.gameObject.tag == "Ground")) {
             OnCollisionEnter(collision);
         }
     }
@@ -71,14 +34,10 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.tag == "Ground") {
             isGrounded = false;
         }
-		if (other.gameObject.tag == "Platform") {
-			isPlatformed = false;
-		}
     }
 
     void FixedUpdate() {
-
-		if (isGrounded || isPlatformed) {
+		if (isGrounded && !isTalking) {
 			int hor = 0;
 			int ver = 0;
 
