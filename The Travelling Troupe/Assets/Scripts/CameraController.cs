@@ -15,13 +15,22 @@ public class CameraController : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
     }
 
-    private void LateUpdate() {
+    /*
+     private void LateUpdate() { }
+        if (!pc.isTalking)
+            transform.position = targetToFollow.position + targetOffset;
+    }
+    */
 
+    
+    private void LateUpdate()
+    {
         if (!pc.isTalking && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
             anim.Play("ExitTalkAnim");
         else if (!pc.isTalking)
             transform.position = targetToFollow.position + targetOffset;
-        else 
+        else
             anim.Play("TalkAnim");
     }
+    
 }
