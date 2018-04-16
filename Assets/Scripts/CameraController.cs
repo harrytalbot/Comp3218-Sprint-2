@@ -15,6 +15,19 @@ public class CameraController : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
     }
 
+    public void update()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            transform.Find("MainCamera").position = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            transform.Find("MainCamera").position = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
+        }
+    }
+
     /*
      private void LateUpdate() { }
         if (!pc.isTalking)
@@ -22,7 +35,7 @@ public class CameraController : MonoBehaviour {
     }
     */
 
-    
+
     private void LateUpdate()
     {
         if (!pc.isTalking && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
