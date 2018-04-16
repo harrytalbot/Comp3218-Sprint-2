@@ -38,6 +38,8 @@ public class meshGenerator : MonoBehaviour {
 
         mesh.triangles = new int[] { 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7};
 
+        mesh.RecalculateNormals();
+
         GetComponent<MeshRenderer>().material = material;
         GetComponent<MeshFilter>().mesh = mesh;
 
