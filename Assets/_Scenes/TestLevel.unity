@@ -269,6 +269,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 23860299548364208, guid: 7bcb4cde13e3dc54ea9354e118e5d046,
+        type: 2}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bcb4cde13e3dc54ea9354e118e5d046, type: 2}
   m_IsPrefabParent: 0
@@ -2005,7 +2010,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8bc9f3630b794c84ebb8ac0195f38fb4, type: 2}
+  - {fileID: 2100000, guid: b7ec323314cd51c4e9780dfa8b3a75da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
