@@ -21,13 +21,13 @@ public class PlayerController : MonoBehaviour {
     private Talkable tk;
     public float activationDistance;
     public GameObject myUI;
+    public int characterNumber; // When new characters are added we can adjust this value from the editor set initial parameters. AKA if you grab the chicken 2nd instead of the cat it'll change to be the next lowest int. 
 
-    public Vector3 checkpoint;
+    public bool controlled;
 
     void start()
     {
         isTalking = false;
-        checkpoint = new Vector3(0f, 0f, 0f);
     }
 
     void Awake() {
@@ -53,9 +53,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!isTalking)
+        if (!isTalking && controlled)
         {
-
             /*
             int hor = 0;
             int ver = 0;
@@ -158,21 +157,56 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if (isTalking)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
+        if (isTalking && controlled) {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 // pick option 1
                 tk.setReply(0);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
+            else if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 // pick option 2
                 tk.setReply(1);
             }
-            
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            if (characterNumber == 1) {
+                controlled = true;
+                mainCam.enabled = true;
+            }
+            else {
+                controlled = false;
+                mainCam.enabled = false;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            if (characterNumber == 2) {
+                controlled = true;
+                mainCam.enabled = true;
+            }
+            else {
+                controlled = false;
+                mainCam.enabled = false;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            if (characterNumber == 3) {
+                controlled = true;
+                mainCam.enabled = true;
+            }
+            else {
+                controlled = false;
+                mainCam.enabled = false;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            if (characterNumber == 4) {
+                controlled = true;
+                mainCam.enabled = true;
+            }
+            else {
+                controlled = false;
+                mainCam.enabled = false;
+            }
         }
     }
-
-    
 }
