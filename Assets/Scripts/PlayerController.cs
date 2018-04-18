@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     public Camera mainCam;
 
     public float speed;
+    public float jumpPower;
+
 
     private bool isGrounded;
     public bool isTalking;
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isGrounded && !isTalking) {
+        if (!isTalking) {
             int hor = 0;
             int ver = 0;
 
@@ -83,8 +85,8 @@ public class PlayerController : MonoBehaviour {
                 rb.velocity = new Vector3(0.0f, rb.velocity.y, 0.0f);
                 rb.angularVelocity = Vector3.zero;
             }
-            if (Input.GetKey(KeyCode.Space)) {
-                rb.velocity += Vector3.up * speed;
+            if (Input.GetKey(KeyCode.Space) & isGrounded) {
+                rb.velocity += Vector3.up * jumpPower;
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
