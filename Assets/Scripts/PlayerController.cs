@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             // manual gravity?
-            //rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
+            rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
             if (Input.GetKeyDown(KeyCode.E))
             {
