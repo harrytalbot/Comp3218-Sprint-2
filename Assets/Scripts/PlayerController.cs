@@ -7,8 +7,13 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
     public Camera mainCam;
 
-    public float speed;
-    public float jumpPower;
+    public float moveSpeed;
+    public float rotationSpeed;
+
+    public float jumpHeight;
+    private float gravity = 10;
+
+    public float maxVelocityChange = 10.0f;
 
 
     private bool isGrounded;
@@ -49,9 +54,11 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         if (!isTalking) {
+            
+            /*
             int hor = 0;
             int ver = 0;
-
+                       
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
                 ver++;
             }
@@ -61,12 +68,14 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
                 hor++;
             }
+
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
                 ver--;
             }
-
+            
             if (hor != 0 || ver != 0) {
-                float verticalSpeed = rb.velocity.y;
+                // rotate the player slightly
+                //float verticalSpeed = rb.velocity.y;
                 Vector3 horComponent = Vector3.Normalize(new Vector3(hor * mainCam.transform.right.x, 0.0f, hor * mainCam.transform.right.z));
                 Vector3 verComponent = Vector3.Normalize(new Vector3(ver * mainCam.transform.up.x, 0.0f, ver * mainCam.transform.up.z));
                 Quaternion target = Quaternion.Euler(0, 0, 0);
@@ -79,15 +88,40 @@ public class PlayerController : MonoBehaviour {
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * 4f);
 
-                rb.velocity = Vector3.Normalize(horComponent + verComponent) * speed;
-                rb.velocity = new Vector3(rb.velocity.x, verticalSpeed, rb.velocity.z);
+                //rb.velocity = Vector3.Normalize(horComponent + verComponent) * speed;
+                //rb.velocity = new Vector3(rb.velocity.x, verticalSpeed, rb.velocity.z);
             } else {
-                rb.velocity = new Vector3(0.0f, rb.velocity.y, 0.0f);
-                rb.angularVelocity = Vector3.zero;
+                //rb.velocity = new Vector3(0.0f, rb.velocity.y, 0.0f);
+                //rb.angularVelocity = Vector3.zero;
             }
+            */
+
+            // calculate rotation
+
+            transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
+            
+            // Calculate how fast we should be moving
+
+            Vector3 targetVelocity = new Vector3(0, 0, Input.GetAxis("Vertical"));
+            targetVelocity = transform.TransformDirection(targetVelocity);
+            targetVelocity *= moveSpeed;
+
+            // Apply a force that attempts to reach our target velocity
+            Vector3 velocity = rb.velocity;
+            Vector3 velocityChange = (targetVelocity - velocity);
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+            velocityChange.y = 0;
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+            
+
             if (Input.GetKey(KeyCode.Space) & isGrounded) {
-                rb.velocity += Vector3.up * jumpPower;
+                Jump();
             }
+
+            // manual gravity?
+            //rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 RaycastHit hit;
@@ -112,6 +146,13 @@ public class PlayerController : MonoBehaviour {
             }
 
         }
+    }
+
+
+    void Jump()
+    {
+        // this will work like an arc
+        rb.velocity = new Vector3(rb.velocity.x, Mathf.Sqrt(2 * jumpHeight * gravity), rb.velocity.z);
     }
 
     void Update()

@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
     }
 
+    // doesn't work right now
     public void update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
