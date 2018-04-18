@@ -53,8 +53,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!isTalking) {
-            
+        if (!isTalking)
+        {
+
             /*
             int hor = 0;
             int ver = 0;
@@ -99,9 +100,9 @@ public class PlayerController : MonoBehaviour {
             // calculate rotation
 
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
-            
-            // Calculate how fast we should be moving
 
+            // Calculate how fast we should be moving
+            if (isGrounded) { 
             Vector3 targetVelocity = new Vector3(0, 0, Input.GetAxis("Vertical"));
             targetVelocity = transform.TransformDirection(targetVelocity);
             targetVelocity *= moveSpeed;
@@ -113,8 +114,8 @@ public class PlayerController : MonoBehaviour {
             velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
             velocityChange.y = 0;
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
-            
 
+            }
             if (Input.GetKey(KeyCode.Space) & isGrounded) {
                 Jump();
             }

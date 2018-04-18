@@ -1197,6 +1197,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 478060}
+  - component: {fileID: 64306854158250648}
   m_Layer: 0
   m_Name: planter_lod1
   m_TagString: Untagged
@@ -2428,8 +2429,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.012410422, y: 0.7398969, z: 4.828231}
+  m_LocalRotation: {x: 0, y: 0.34202027, z: -0, w: -0.9396926}
+  m_LocalPosition: {x: 13.14, y: 1, z: -6.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404944}
@@ -2482,7 +2483,7 @@ Transform:
   - {fileID: 478060}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 320, z: 0}
 --- !u!4 &457564
 Transform:
   m_ObjectHideFlags: 1
@@ -6941,7 +6942,7 @@ LODGroup:
   - screenRelativeHeight: 0.0060115256
     fadeTransitionWidth: 0
     renderers: []
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -6953,3 +6954,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151708}
   m_IsPrefabParent: 1
+--- !u!64 &64306854158250648
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 173034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300014, guid: b8fa9af0c206dad4fa10fd8711f98892, type: 3}
