@@ -6,32 +6,23 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
     public Camera mainCam;
+    private Talkable tk;
 
     public float moveSpeed;
     public float rotationSpeed;
-
     public float jumpHeight;
+    public float maxVelocityChange = 10.0f;
+    public float activationDistance;
+    public int characterNumber; // Donkey = 1, Dog = 2, Cat = 3, Chicken = 4    (These can be easily changed)
+
     private float gravity = 10;
 
-    public float maxVelocityChange = 10.0f;
-
-
     private bool isGrounded;
-    public bool isTalking;
-    private Talkable tk;
-    public float activationDistance;
-    public GameObject myUI;
-    public int characterNumber; // When new characters are added we can adjust this value from the editor set initial parameters. AKA if you grab the chicken 2nd instead of the cat it'll change to be the next lowest int. 
-
-    public bool controlled;
-
-    void start()
-    {
-        isTalking = false;
-    }
-
+    
     void Awake() {
 		rb = GetComponent<Rigidbody> ();
+        mainCam = GetComponentInChildren<Camera>();
+        characterNumber--;
 	}
 
     void OnCollisionEnter(Collision other) {
@@ -53,7 +44,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (!isTalking && controlled)
+        if (GameState.activeCharacter == characterNumber && !GameState.isTalking)
         {
             /*
             int hor = 0;
@@ -122,91 +113,39 @@ public class PlayerController : MonoBehaviour {
             // manual gravity?
             rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
+            if (Input.GetKeyDown(KeyCode.E)) {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, activationDistance))
-                {
-                    tk = hit.collider.gameObject.GetComponent<Talkable>();
-                    if (tk != null)
-                    {
+                if (Physics.Raycast(transform.position, transform.forward, out hit, activationDistance)) {
+                    tk = hit.collider.gameObject.GetComponent<Talkable>();                    
+                    if (tk != null) {
                         tk.Interact();
-                        if (!isTalking)
-                        {
-                            isTalking = true;
-                            myUI.SetActive(true);
-                        }
-                        else
-                        {
-                            isTalking = false;
-                            myUI.SetActive(false);
-                        }
+                        GameState.isTalking = true;
+                        GameState.conversationUI.SetActive(true);
                     }
                 }
             }
-
         }
     }
 
 
-    void Jump()
-    {
+    void Jump() {
         // this will work like an arc
         rb.velocity = new Vector3(rb.velocity.x, Mathf.Sqrt(2 * jumpHeight * gravity), rb.velocity.z);
     }
 
-    void Update()
-    {
-        if (isTalking && controlled) {
+    void Update() {
+
+        if (GameState.isTalking && GameState.activeCharacter == characterNumber) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 // pick option 1
-                tk.setReply(0);
+               tk.setReply(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 // pick option 2
                 tk.setReply(1);
             }
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            if (characterNumber == 1) {
-                controlled = true;
-                mainCam.enabled = true;
-            }
-            else {
-                controlled = false;
-                mainCam.enabled = false;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            if (characterNumber == 2) {
-                controlled = true;
-                mainCam.enabled = true;
-            }
-            else {
-                controlled = false;
-                mainCam.enabled = false;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            if (characterNumber == 3) {
-                controlled = true;
-                mainCam.enabled = true;
-            }
-            else {
-                controlled = false;
-                mainCam.enabled = false;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            if (characterNumber == 4) {
-                controlled = true;
-                mainCam.enabled = true;
-            }
-            else {
-                controlled = false;
-                mainCam.enabled = false;
-            }
         }
     }
+
+   
 }

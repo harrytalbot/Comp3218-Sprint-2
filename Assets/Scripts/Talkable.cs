@@ -21,7 +21,7 @@ public class Talkable : MonoBehaviour {
         dialogueButtonOne = GameObject.Find("ButtonOne").GetComponent<Button>();
         dialogueButtonTwo = GameObject.Find("ButtonTwo").GetComponent<Button>();
 
-        myUI = GameObject.Find("Player").GetComponent<InteractController>().myUI;
+        myUI = GameState.conversationUI;
         convNextPoint = convEntryPoint;
 
     }
@@ -57,7 +57,7 @@ public class Talkable : MonoBehaviour {
     //unused    
     void TaskOnClick() { // Follow up Dialogue or exiting from the talk situation can happen here.
         Debug.Log("THE BUTTON WAS CLICKED!");
-        GameObject.Find("Player").GetComponent<PlayerController>().isTalking = false;
+        GameState.isTalking = false;
         myUI.SetActive(false);
     }
 
@@ -70,7 +70,7 @@ public class Talkable : MonoBehaviour {
         if (reply == -2)
         {
             // conversation has been cancelled. kill it here rather than waiting for update.
-            GameObject.Find("Player").GetComponent<PlayerController>().isTalking = false;
+            GameState.isTalking = false;
             myUI.SetActive(false);
             convNextPoint = convPoint;
             return;
@@ -81,7 +81,7 @@ public class Talkable : MonoBehaviour {
         if (temp == -1)
         {
             // conversation has ended. kill it here rather than waiting for update.
-            GameObject.Find("Player").GetComponent<PlayerController>().isTalking = false;
+            GameState.isTalking = false;
             myUI.SetActive(false);
             convNextPoint = convPoint;
         }

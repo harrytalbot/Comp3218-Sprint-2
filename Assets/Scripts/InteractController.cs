@@ -15,13 +15,12 @@ public class InteractController : MonoBehaviour {
                 Talkable tk = hit.collider.gameObject.GetComponent<Talkable>();
                 if (tk != null) {
                     tk.Interact();
-                    PlayerController pc = GetComponent<PlayerController>();
-                    if (!pc.isTalking) {
-                        pc.isTalking = true;
+                    if (!GameState.isTalking) {
+                        GameState.isTalking = true;
                         myUI.SetActive(true);
                     }
                     else {
-                        pc.isTalking = false;
+                        GameState.isTalking = false;
                         myUI.SetActive(false);
                     }
                 }                    

@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public Transform targetToFollow;
-    public Vector3 targetOffset;
-    public Animator anim;
-
+    private Animator anim;
     private PlayerController pc;
 
     public void Awake() {
-        pc = GameObject.Find("Player").GetComponent<PlayerController>();
-        anim = GetComponentInChildren<Animator>();
+        pc = GetComponentInParent<PlayerController>();
+        anim = GetComponent<Animator>();
+        //anim = GetComponentInChildren<Animator>();
     }
 
     // doesn't work right now
-    public void update()
+    /*public void Update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
@@ -29,7 +27,7 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    /*
+    
      private void LateUpdate() { }
         if (!pc.isTalking)
             transform.position = targetToFollow.position + targetOffset;
@@ -39,12 +37,12 @@ public class CameraController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (!pc.isTalking && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
+        if (!GameState.isTalking && GameState.activeCharacter == pc.characterNumber && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
             anim.Play("ExitTalkAnim");
-        else if (!pc.isTalking)
-            transform.position = targetToFollow.position + targetOffset;
-        else
+        else if (GameState.isTalking && GameState.activeCharacter == pc.characterNumber)
             anim.Play("TalkAnim");
+        //else if (!GameState.isTalking)
+        //transform.position = targetToFollow.position + targetOffset;
     }
-    
+
 }
