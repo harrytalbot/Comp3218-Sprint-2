@@ -23,7 +23,7 @@ public class Talkable : MonoBehaviour {
         dialogueButtonOne = GameObject.Find("ButtonOne").GetComponent<Button>();
         dialogueButtonTwo = GameObject.Find("ButtonTwo").GetComponent<Button>();
 
-        myUI = GameState.conversationUI;
+        myUI = GameObject.FindGameObjectWithTag("DialogueBox");
         convNextPoint = convEntryPoint;
 
     }
@@ -53,6 +53,7 @@ public class Talkable : MonoBehaviour {
         string[] replies = conversation.getNodes()[convNextPoint].getReplies();
         dialogueButtonOne.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
         dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+
         //dialogueButtonOne.onClick.AddListener(TaskOnClick);
     }
 

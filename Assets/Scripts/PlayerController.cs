@@ -118,6 +118,16 @@ public class PlayerController : MonoBehaviour {
                 if (Physics.Raycast(transform.position, transform.forward, out hit, activationDistance)) {
                     tk = hit.collider.gameObject.GetComponent<Talkable>();                    
                     if (tk != null) {
+
+                        // make player invisible - needs transparent shader
+                        /*
+                         * Material mat = transform.Find("Renderer").GetComponentInChildren<SkinnedMeshRenderer>().material;
+                        Color newColor = mat.color;
+                        newColor.a = 0.2f;
+                        mat.color = newColor;
+                        */
+
+
                         tk.Interact();
                         GameState.isTalking = true;
                         GameState.conversationUI.SetActive(true);
@@ -149,7 +159,16 @@ public class PlayerController : MonoBehaviour {
                 tk.setReply(-2);
             }
         }
-    }
 
-   
+        /*
+        if (!GameState.isTalking) {             
+            // make player visible
+            Material mat = transform.Find("Renderer").GetComponentInChildren<SkinnedMeshRenderer>().material;
+            Color newColor = mat.color;
+            newColor.a = 1;
+            mat.color = newColor;
+        }
+        */
+    }
+    
 }

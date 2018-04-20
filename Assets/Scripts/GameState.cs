@@ -7,6 +7,7 @@ public class GameState : MonoBehaviour {
     private static GameObject[] playerObjects = new GameObject[4];
     private static GameObject[] inventoryIcons;
     public static GameObject conversationUI;
+    public GameObject convUIForInspector;
     public static bool[] charactersGot = new bool[4];
     public static int activeCharacter;
     public static bool isTalking;
@@ -17,7 +18,8 @@ public class GameState : MonoBehaviour {
         charactersGot[initialCharacter] = true;
         activeCharacter = initialCharacter;
         isTalking = false;
-        conversationUI = GameObject.Find("DialogueBox");
+        conversationUI = GameObject.FindGameObjectWithTag("DialogueBox");
+        convUIForInspector = conversationUI;
         GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("Player");
         inventoryIcons = GameObject.FindGameObjectsWithTag("Item");
 
