@@ -9,6 +9,7 @@ TagManager:
   - Interactable
   - Item
   - DialogueBox
+  - Mouse
   layers:
   - Default
   - TransparentFX

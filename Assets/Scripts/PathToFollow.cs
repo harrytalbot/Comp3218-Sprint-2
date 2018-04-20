@@ -7,11 +7,9 @@ using UnityEngine.AI;
 
 public class PathToFollow : MonoBehaviour {
 
-    // put the points from unity interface
     public Transform[] wayPointList;
-    public Transform[] childList;
-    public GameObject path;
-    Transform targetWayPoint;
+    public float minDist;
+    public Transform path;
 
 
     private int destPoint = -1;
@@ -23,9 +21,9 @@ public class PathToFollow : MonoBehaviour {
     void Start()
     {
 
-        path = GameObject.Find("Paths");
+        path = transform.parent.Find("Paths");
 
-        wayPointList = path.transform.Cast<Transform>().ToArray();
+        wayPointList = path.Cast<Transform>().ToArray();
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -65,7 +63,7 @@ public class PathToFollow : MonoBehaviour {
     {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if (agent.remainingDistance < .5)
+        if (agent.remainingDistance < minDist)
             GotoNextPoint();
     }
 
