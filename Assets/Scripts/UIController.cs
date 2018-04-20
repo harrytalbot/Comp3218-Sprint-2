@@ -6,6 +6,6 @@ public class UIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        gameObject.SetActive(false);
+        GameObject.Find("DialogueBox").SetActive(false);
     }
 }

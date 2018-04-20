@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Talkable : MonoBehaviour {
 
-    public string message;
+    public bool isPickUp;
+    public bool stayAfterPickUp = true;
+    public int pickUpIndex;
     private Text dialogueBox;
     private Button dialogueButtonOne, dialogueButtonTwo;
     private GameObject myUI;
@@ -77,18 +79,27 @@ public class Talkable : MonoBehaviour {
         }
 
         // get the response
-        int temp = conversation.getNodes()[convPoint].getReplyPointer()[reply];
-        if (temp == -1)
+        int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
+        if (replyIndex == -1)
         {
             // conversation has ended. kill it here rather than waiting for update.
             GameState.isTalking = false;
             myUI.SetActive(false);
             convNextPoint = convPoint;
+            return;
         }
-        else
-        {
+        else if (isPickUp && replyIndex == pickUpIndex) {
+            GameState.isTalking = false;
+            myUI.SetActive(false);
+            convNextPoint = convPoint;
+            GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
+            if (!stayAfterPickUp) {
+                gameObject.SetActive(false);
+            }
+        }
+        else {
             //update the response so fixedUpdate will see the difference
-            convNextPoint = temp;
+            convNextPoint = replyIndex;
         }
     }
 

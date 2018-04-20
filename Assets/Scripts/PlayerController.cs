@@ -144,6 +144,10 @@ public class PlayerController : MonoBehaviour {
                 // pick option 2
                 tk.setReply(1);
             }
+            else if (Input.GetKeyDown(KeyCode.E) && GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("TalkAnim")) {
+                // Cancel conversation
+                tk.setReply(-2);
+            }
         }
     }
 
