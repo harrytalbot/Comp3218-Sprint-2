@@ -8,13 +8,26 @@ public class GameState : MonoBehaviour {
     private static GameObject[] inventoryIcons;
     public static GameObject conversationUI;
     public GameObject convUIForInspector;
-    public static bool[] charactersGot = new bool[4];
+    private static bool[] charactersGot = new bool[4];
     public static int activeCharacter;
     public static bool isTalking;
     public int initialCharacter;
+    public bool character1Active = false;
+    public bool character2Active = false;
+    public bool character3Active = false;
+    public bool character4Active = false;
     public bool debug;
     
 	void Awake () {
+        if (initialCharacter == 0)
+            character1Active = true;
+        else if (initialCharacter == 1)
+            character2Active = true;
+        else if (initialCharacter == 2)
+            character3Active = true;
+        else if (initialCharacter == 3)
+            character4Active = true;
+
         charactersGot[initialCharacter] = true;
         activeCharacter = initialCharacter;
         isTalking = false;
@@ -49,10 +62,17 @@ public class GameState : MonoBehaviour {
         player.GetComponent<PlayerController>().mainCam.enabled = true;
 
         if (debug == true) {
-            Debug.Log("Debug enabled. All characters unlocked.\nMay produce Errors if they aren't in the PlayerObjects list.");
+            Debug.Log("Debug enabled. All characters unlocked.\nMay produce Errors if they aren't tagged with 'Player'.");
+            charactersGot[0] = true;
             charactersGot[1] = true;
             charactersGot[2] = true;
             charactersGot[3] = true;
+        }
+        else {
+            charactersGot[0] = character1Active;
+            charactersGot[1] = character2Active;
+            charactersGot[2] = character3Active;
+            charactersGot[3] = character4Active;
         }
 	}
 
@@ -70,6 +90,9 @@ public class GameState : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.Alpha4) && !(activeCharacter == 3) && charactersGot[3]) {
                 SwapCharacter(3);
             }
+            else if (Input.GetKeyDown(KeyCode.Alpha0)) {
+                UnlockCharacter(0); UnlockCharacter(1); UnlockCharacter(2); UnlockCharacter(3);
+            }
         }
     }
 
@@ -81,6 +104,18 @@ public class GameState : MonoBehaviour {
 
     public static GameObject GetActiveCharacter() {
         return playerObjects[activeCharacter];
+    }
+
+    public static bool IsUnlocked(GameObject character) {
+        for (int i = 0; i < 4; i++) {
+            if (playerObjects[i] != null && playerObjects[i].Equals(character) && charactersGot[i])
+                return true;
+        }
+        return false;
+    }
+
+    public static void UnlockCharacter(int character) {
+        charactersGot[character] = true;
     }
 
     public static void UpdateIcon(Inventory inventory) {
