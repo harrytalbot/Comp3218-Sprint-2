@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
     public float maxVelocityChange = 10.0f;
     public float activationDistance;
-    public int characterNumber; // Donkey = 1, Dog = 2, Cat = 3, Chicken = 4    (These can be easily changed)
+    public int characterNumber; // Donkey = 0, Dog = 1, Cat = 2, Chicken = 3    (These can be easily changed)
 
     private float gravity = 10;
 
@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour {
     
     void Awake() {
 		rb = GetComponent<Rigidbody> ();
-        mainCam = GetComponentInChildren<Camera>();
-        characterNumber--;
 	}
 
     void OnCollisionEnter(Collision other) {

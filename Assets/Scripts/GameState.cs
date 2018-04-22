@@ -38,9 +38,9 @@ public class GameState : MonoBehaviour {
 
         for (int i = 0; i < tempObjects.Length; i++) {
             for (int j = 0; j < tempObjects.Length; j++) {
-                if (tempObjects[j].GetComponent<PlayerController>().characterNumber - 1 == i) {
+                if (tempObjects[j].GetComponent<PlayerController>().characterNumber == i) {
                     playerObjects[i] = tempObjects[j];
-                    Debug.Log(tempObjects[j]);
+                    Debug.Log(tempObjects[j] + " has characterNumber = " + (tempObjects[j].GetComponent<PlayerController>().characterNumber));
                 }
             }
         }
@@ -51,6 +51,7 @@ public class GameState : MonoBehaviour {
             }
         }
         GameObject player = playerObjects[initialCharacter];
+        Debug.Log("Variable Player = " + player);
         Inventory inventory = player.GetComponent<Inventory>();
         for (int i = 0; i < inventoryIcons.Length; i++) {
             if (inventoryIcons[i] != null) {
@@ -106,15 +107,17 @@ public class GameState : MonoBehaviour {
         return playerObjects[activeCharacter];
     }
 
-    public static bool IsUnlocked(int characterNumber) {
+    public static GameObject[] GetCharacters() {
+        return playerObjects;
+    }
 
-        return charactersGot[characterNumber-1];
-        /*
+    public static bool IsUnlocked(GameObject character) {
+      
         for (int i = 0; i < 4; i++) {
             if (playerObjects[i] != null && playerObjects[i].Equals(character) && charactersGot[i])
                 return true;
         }
-        return false; */
+        return false;
     }
 
     public static void UnlockCharacter(int character) {
