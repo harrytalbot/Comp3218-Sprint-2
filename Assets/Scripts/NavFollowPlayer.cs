@@ -9,17 +9,21 @@ public class NavFollowPlayer : MonoBehaviour {
     private GameObject npcObject;
     private NavMeshAgent npc;
     private bool reset = false;
-    
+
+    private int characterNumber;
+
 
 	// Use this for initialization
 	void Start () {
         npc = GetComponent<NavMeshAgent>();
         npcObject = gameObject;
-	}
+        characterNumber = GetComponent<PlayerController>().characterNumber;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameState.IsUnlocked(npcObject)) {
+        if (GameState.IsUnlocked(characterNumber)) {
+            print("unlocked");
             player = GameState.GetActiveCharacter();
 
             if (!player.Equals(npcObject) && reset) {

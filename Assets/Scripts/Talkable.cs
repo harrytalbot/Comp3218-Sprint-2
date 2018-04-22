@@ -10,11 +10,19 @@ public class Talkable : MonoBehaviour {
     public int pickUpIndex;
     private Text dialogueBox;
     private Button dialogueButtonOne, dialogueButtonTwo;
+    private GameObject ButtonTwo;
     private GameObject myUI;
+
+    // script to run if the conversation is a success.
+    public GameObject successfullCoversationScript;
 
     public int convEntryPoint;
     private int convPoint, convNextPoint;
     public Conversation conversation;
+
+
+
+
 
     public void Awake() {
         
@@ -22,6 +30,9 @@ public class Talkable : MonoBehaviour {
         // two buttons for responses
         dialogueButtonOne = GameObject.Find("ButtonOne").GetComponent<Button>();
         dialogueButtonTwo = GameObject.Find("ButtonTwo").GetComponent<Button>();
+
+        // button two gameobject for activating
+        ButtonTwo = GameObject.Find("ButtonTwo");
 
         myUI = GameObject.FindGameObjectWithTag("DialogueBox");
         convNextPoint = convEntryPoint;
@@ -37,17 +48,18 @@ public class Talkable : MonoBehaviour {
             int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
             string[] replies = conversation.getNodes()[convNextPoint].getReplies();
             dialogueButtonOne.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
-            dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+                dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+ 
+
 
         }
     }
 
     /**
-     * Method for initial interaction, sets up the dialog and gets the conversation pointers right so fixedUpdae
+     * Method for initial interaction, sets up the dialog and gets the conversation pointers right so fixedUpdate
      * is ready to see a change
      **/
     public void Interact() {
-        convNextPoint = convEntryPoint;
         dialogueBox.text = conversation.getNodes()[convNextPoint].getMessage();
         int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
         string[] replies = conversation.getNodes()[convNextPoint].getReplies();
@@ -70,16 +82,10 @@ public class Talkable : MonoBehaviour {
      */
     public void setReply(int reply)
     {
-        if (reply == -2)
-        {
-            // conversation has been cancelled. kill it here rather than waiting for update.
-            GameState.isTalking = false;
-            myUI.SetActive(false);
-            convNextPoint = convPoint;
-            return;
-        }
 
         // get the response
+        if (reply < conversation.getNodes()[convPoint].getReplies().Length) { }
+
         int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
         if (replyIndex == -1)
         {
@@ -87,6 +93,14 @@ public class Talkable : MonoBehaviour {
             GameState.isTalking = false;
             myUI.SetActive(false);
             convNextPoint = convPoint;
+            return;
+        }
+        if (replyIndex == -2)
+        {
+            // conversation has been cancelled. kill it here rather than waiting for update. go back to start of convo
+            GameState.isTalking = false;
+            myUI.SetActive(false);
+            convNextPoint = convEntryPoint;
             return;
         }
         else if (isPickUp && replyIndex == pickUpIndex) {
@@ -103,5 +117,6 @@ public class Talkable : MonoBehaviour {
             convNextPoint = replyIndex;
         }
     }
+    }
 
-}
+

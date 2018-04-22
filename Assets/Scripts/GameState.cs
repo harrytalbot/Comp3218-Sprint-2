@@ -106,12 +106,15 @@ public class GameState : MonoBehaviour {
         return playerObjects[activeCharacter];
     }
 
-    public static bool IsUnlocked(GameObject character) {
+    public static bool IsUnlocked(int characterNumber) {
+
+        return charactersGot[characterNumber-1];
+        /*
         for (int i = 0; i < 4; i++) {
             if (playerObjects[i] != null && playerObjects[i].Equals(character) && charactersGot[i])
                 return true;
         }
-        return false;
+        return false; */
     }
 
     public static void UnlockCharacter(int character) {

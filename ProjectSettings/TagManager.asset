@@ -10,6 +10,7 @@ TagManager:
   - Item
   - DialogueBox
   - Mouse
+  - ButtonTwo
   layers:
   - Default
   - TransparentFX
