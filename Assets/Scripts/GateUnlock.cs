@@ -32,7 +32,7 @@ public class GateUnlock : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) & other.transform.parent.tag == "Player" & GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey)
+        if (Input.GetKeyDown(KeyCode.E) && other.transform.parent.tag == "Player" && GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey)
         {
             // open gate
             openGate = true;
