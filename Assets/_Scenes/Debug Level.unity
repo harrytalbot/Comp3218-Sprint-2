@@ -768,8 +768,8 @@ MonoBehaviour:
   isPickUp: 1
   stayAfterPickUp: 0
   pickUpIndex: 2
-  hintUIText: 
-  successfullCoversationScript: {fileID: 0}
+  hint: 
+  talkableName: 
   convEntryPoint: 0
   conversation:
     nodes:
@@ -783,7 +783,7 @@ MonoBehaviour:
       replies:
       - Pick Up Item!
       - Finish Conversation!
-  hintUI: {fileID: 0}
+  successfullCoversationScript: {fileID: 0}
 --- !u!23 &583325389
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1224,6 +1224,8 @@ MonoBehaviour:
   sweepAngle: 15
   sweepSpeed: 10
   segments: 6
+  maxChaseDistance: 20
+  minChaseDistance: 2
 --- !u!33 &993379208
 MeshFilter:
   m_ObjectHideFlags: 0
