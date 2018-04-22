@@ -291,18 +291,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &352290820
-MonoBehaviour:
+--- !u!195 &352290820
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352290814}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9823f3b6741e947b50691f8369f210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &361178242
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +430,7 @@ MonoBehaviour:
   character3Active: 0
   character4Active: 0
   debug: 0
+  tempObjects: []
 --- !u!4 &365938333
 Transform:
   m_ObjectHideFlags: 0
@@ -758,6 +768,7 @@ MonoBehaviour:
   isPickUp: 1
   stayAfterPickUp: 0
   pickUpIndex: 2
+  hintUIText: 
   successfullCoversationScript: {fileID: 0}
   convEntryPoint: 0
   conversation:
@@ -772,6 +783,7 @@ MonoBehaviour:
       replies:
       - Pick Up Item!
       - Finish Conversation!
+  hintUI: {fileID: 0}
 --- !u!23 &583325389
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1041,6 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1267440499}
+  hintCollider: {fileID: 0}
   moveSpeed: 10
   rotationSpeed: 3
   jumpHeight: 4
@@ -1188,7 +1201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 993379205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 352290819}
@@ -1207,6 +1220,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coneAngle: 30
   coneDistance: 10
+  sweep: 1
+  sweepAngle: 15
+  sweepSpeed: 10
   segments: 6
 --- !u!33 &993379208
 MeshFilter:
@@ -1750,6 +1766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1476365811}
+  hintCollider: {fileID: 0}
   moveSpeed: 10
   rotationSpeed: 3
   jumpHeight: 4

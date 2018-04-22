@@ -1,15 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyVisionCone : MonoBehaviour {
 
     public float coneAngle;
     public float coneDistance;
+    public bool sweep;
+    public float sweepAngle;
+    public float sweepSpeed;
     public float segments = 2;
+    public float maxChaseDistance;
+    public float minChaseDistance;
     private float segmentAngle;
     private GameObject[] targets;
     private Mesh myMesh;
+    private Material material;
 
     private Vector3[] verts;
     private Vector3[] normals;
@@ -17,12 +24,22 @@ public class EnemyVisionCone : MonoBehaviour {
     private Vector2[] uvs;
 
     private float actualAngle;
+    private Vector3 originalDirection;
+    private Vector3 originalSpot;
+
+    private RaycastHit shot;
+    private bool detected = false;
+    private GameObject chaseTarget;
+    private GameObject enemyObject;
     
 
 	// Use this for initialization
 	void Start () {
+        enemyObject = transform.parent.gameObject;
         targets = GameState.GetCharacters(); // Assuming characters are not added or removed during the game.
-
+        material = GetComponent<Renderer>().material;
+        originalDirection = transform.forward;
+        originalSpot = transform.position;
         myMesh = gameObject.GetComponent<MeshFilter>().mesh;
         myMesh.Clear();
         actualAngle = 90.0f - coneAngle;
@@ -65,20 +82,65 @@ public class EnemyVisionCone : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 targetDirection;
+        Vector3 targetDirection;        
         float targetDistance;
         float angle;
 
-        for (int i = 0; i < targets.Length; i++) {
-            if (targets[i] != null) {
-                targetDirection = targets[i].transform.position - transform.position;
-                targetDistance = targetDirection.magnitude;
-                angle = Vector3.Angle(targetDirection, transform.forward);
 
-                if (angle <= coneAngle && targetDistance <= coneDistance)
-                    Debug.Log("I've spotted " + targets[i].name);
+        if (detected) {
+            float chaseDistance = enemyObject.GetComponent<NavMeshAgent>().remainingDistance;
+            if (chaseDistance > minChaseDistance && chaseDistance < maxChaseDistance) { // He's still chasing you!
+                enemyObject.GetComponent<NavMeshAgent>().SetDestination(chaseTarget.transform.position);
+            }
+            else if (chaseDistance >= maxChaseDistance && chaseDistance != Mathf.Infinity) { // You escaped!
+                detected = false;
+                material.color = Color.green;
+                enemyObject.GetComponent<NavMeshAgent>().SetDestination(originalSpot);
+            }
+            else if (chaseDistance <= minChaseDistance) { // You were caught!
+                enemyObject.GetComponent<NavMeshAgent>().SetDestination(enemyObject.transform.position);
+                enemyObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
         }
-        
+        else if (!detected && enemyObject.GetComponent<NavMeshAgent>().desiredVelocity.Equals(new Vector3(0, 0, 0)) && !transform.forward.Equals(originalDirection)) { // Reset orientation
+            transform.parent.forward = originalDirection;
+            enemyObject.GetComponent<NavMeshAgent>().SetDestination(transform.parent.position);
+        }
+
+        Vector3 frontDirection = transform.parent.forward;
+
+        if (!detected) {
+            for (int i = 0; i < targets.Length; i++) {
+                if (targets[i] != null) {
+                    targetDirection = targets[i].transform.position - transform.position;
+                    targetDistance = targetDirection.magnitude;
+                    angle = Vector3.Angle(targetDirection, transform.forward);
+                    Vector3 beforeDirection = transform.forward;
+                    if (angle <= coneAngle && targetDistance <= coneDistance) {
+                        transform.LookAt(targets[i].transform);
+                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out shot)) {
+                            if (shot.collider.gameObject.Equals(targets[i])) {
+                                material.color = Color.red;
+                                chaseTarget = targets[i];
+                                Debug.Log(chaseTarget.name);
+                                detected = true;
+                                enemyObject.GetComponent<NavMeshAgent>().SetDestination(chaseTarget.transform.position);
+                            }
+                            else
+                                transform.forward = beforeDirection;
+                        }
+                    }
+                }
+            }
+            if (sweep && Vector3.Angle(transform.forward, frontDirection) < sweepAngle)
+                transform.Rotate(Vector3.up, sweepSpeed * Time.deltaTime);
+            else {
+                sweepSpeed = -sweepSpeed;
+                while (Vector3.Angle(transform.forward, frontDirection) > sweepAngle) {
+                    transform.Rotate(Vector3.up, sweepSpeed * 0.01f);
+                }
+
+            }
+        }
     }
 }
