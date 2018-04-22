@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GateUnlock : MonoBehaviour
 {
@@ -11,17 +13,21 @@ public class GateUnlock : MonoBehaviour
     private float totalRotation = 110;
     public bool openGate = false;
 
-    // Use this for initialization
-    void Start()
-    {
+    public GameObject hintUI;
+    public string hintUIText;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.parent.tag == "Player")
+        {
+            hintUI.SetActive(true);
+            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+        }
     }
 
-
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        if (openGate)
-            Open();
+        hintUI.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -34,6 +40,12 @@ public class GateUnlock : MonoBehaviour
             transform.Find("Lock").GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 5f));
 
         }
+    }
+
+    void Update()
+    {
+        if (openGate)
+            Open();
     }
 
     void Open()

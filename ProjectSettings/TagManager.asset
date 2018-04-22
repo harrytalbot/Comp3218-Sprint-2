@@ -11,6 +11,7 @@ TagManager:
   - DialogueBox
   - Mouse
   - ButtonTwo
+  - Hint
   layers:
   - Default
   - TransparentFX

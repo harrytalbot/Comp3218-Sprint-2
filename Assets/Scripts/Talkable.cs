@@ -12,6 +12,7 @@ public class Talkable : MonoBehaviour {
     private Button dialogueButtonOne, dialogueButtonTwo;
     private GameObject ButtonTwo;
     private GameObject myUI;
+    public string hintUIText;
 
     // script to run if the conversation is a success.
     public GameObject successfullCoversationScript;
@@ -19,9 +20,7 @@ public class Talkable : MonoBehaviour {
     public int convEntryPoint;
     private int convPoint, convNextPoint;
     public Conversation conversation;
-
-
-
+    public GameObject hintUI;
 
 
     public void Awake() {
@@ -30,10 +29,7 @@ public class Talkable : MonoBehaviour {
         // two buttons for responses
         dialogueButtonOne = GameObject.Find("ButtonOne").GetComponent<Button>();
         dialogueButtonTwo = GameObject.Find("ButtonTwo").GetComponent<Button>();
-
-        // button two gameobject for activating
-        ButtonTwo = GameObject.Find("ButtonTwo");
-
+        
         myUI = GameObject.FindGameObjectWithTag("DialogueBox");
         convNextPoint = convEntryPoint;
 
@@ -50,8 +46,6 @@ public class Talkable : MonoBehaviour {
             dialogueButtonOne.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
                 dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
  
-
-
         }
     }
 
@@ -69,16 +63,8 @@ public class Talkable : MonoBehaviour {
         //dialogueButtonOne.onClick.AddListener(TaskOnClick);
     }
 
-    //unused    
-    void TaskOnClick() { // Follow up Dialogue or exiting from the talk situation can happen here.
-        Debug.Log("THE BUTTON WAS CLICKED!");
-        GameState.isTalking = false;
-        myUI.SetActive(false);
-    }
-
     /** 
      * Method to convert the user's reply selection to the actual reply
-     * 
      */
     public void setReply(int reply)
     {
@@ -117,6 +103,21 @@ public class Talkable : MonoBehaviour {
             convNextPoint = replyIndex;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.parent.tag == "Player")
+        {
+            hintUI.SetActive(true);
+            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+        }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hintUI.SetActive(false);
+    }
+
+}
 
 
