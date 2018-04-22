@@ -1,26 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Collectable : MonoBehaviour {
 
     public bool isPickup, stayAfterPickup;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private GameObject hintPanel;
+    private Text hintText;
+    public string hint;
+
+    // Use this for initialization
+    void Awake() {
+        hintText = GameObject.Find("Hint Text").GetComponent<Text>();
+        hintPanel = GameObject.FindGameObjectWithTag("Hint");
+    }
 	
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.Q) && other.transform.parent.tag == "Player")
+        if (Input.GetKeyDown(KeyCode.Q) && other.tag == "Player")
         {
-                    print("asas)");
-
             if (isPickup)
             {
                 GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
-
                 if (!stayAfterPickup)
                 {
                     gameObject.SetActive(false);
@@ -29,6 +32,27 @@ public class Collectable : MonoBehaviour {
                 //just a mouse or something
                 gameObject.SetActive(false);
         }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print(other.tag);
+        if (GameState.isTalking)
+        {
+            hintPanel.SetActive(true);
+            hintText.text = "1 & 2: Conversation Replies\n E: Exit Conversation";
+        }
+        else if (other.tag == "Player" && GameState.GetActiveCharacter() == other.gameObject)
+        {
+            hintPanel.SetActive(true);
+            hintText.text = hint;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hintPanel.SetActive(false);
     }
 
 }

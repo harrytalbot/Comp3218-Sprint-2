@@ -8,29 +8,36 @@ public class Talkable : MonoBehaviour {
     public bool isPickUp;
     public bool stayAfterPickUp = true;
     public int pickUpIndex;
-    private Text dialogueBox;
-    private Button dialogueButtonOne, dialogueButtonTwo;
-    private GameObject ButtonTwo;
-    private GameObject myUI;
-    public string hintUIText;
+
+    // text to display when near the talkable, and also the talkable name
+    public string hint, talkableName;
+    public int convEntryPoint;
+    public Conversation conversation;
+
+    // text objects of the panels
+    private Text dialogueText, nameText, buttonOneText, buttonTwoText, hintText;
+    private GameObject buttonOne, buttonTwo;
+    private GameObject dialoguePanel, hintPanel;
+
+    // the current conversation poin and the next one
+    private int convPoint, convNextPoint;
 
     // script to run if the conversation is a success.
     public GameObject successfullCoversationScript;
 
-    public int convEntryPoint;
-    private int convPoint, convNextPoint;
-    public Conversation conversation;
-    public GameObject hintUI;
-
-
     public void Awake() {
         
-        dialogueBox = GameObject.Find("Dialogue").GetComponent<Text>();
+        dialogueText = GameObject.Find("Dialogue").GetComponent<Text>();
+        nameText = GameObject.Find("Name").GetComponent<Text>();
         // two buttons for responses
-        dialogueButtonOne = GameObject.Find("ButtonOne").GetComponent<Button>();
-        dialogueButtonTwo = GameObject.Find("ButtonTwo").GetComponent<Button>();
-        
-        myUI = GameObject.FindGameObjectWithTag("DialogueBox");
+        buttonOne = GameObject.Find("ButtonOne");
+        buttonTwo = GameObject.Find("ButtonTwo");
+        buttonOneText = buttonOne.GetComponent<Button>().GetComponentInChildren<Text>();
+        buttonTwoText = buttonTwo.GetComponent<Button>().GetComponentInChildren<Text>();
+        hintText = GameObject.Find("Hint Text").GetComponent<Text>();
+
+        dialoguePanel = GameObject.FindGameObjectWithTag("DialogueBox");
+        hintPanel = GameObject.FindGameObjectWithTag("Hint");
         convNextPoint = convEntryPoint;
 
     }
@@ -40,12 +47,20 @@ public class Talkable : MonoBehaviour {
         if (convNextPoint != convPoint)
         {
             convPoint = convNextPoint;
-            dialogueBox.text = conversation.getNodes()[convNextPoint].getMessage();
+            dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
             int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
             string[] replies = conversation.getNodes()[convNextPoint].getReplies();
-            dialogueButtonOne.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
-                dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
- 
+            buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
+            if (replies.Length > 1)
+            {
+                buttonTwo.SetActive(true);
+                buttonTwoText.text = (replies[1] + "(" + replyPointers[1] + ")");
+            } else
+            {
+                buttonTwo.SetActive(false);
+            }
+
+
         }
     }
 
@@ -54,12 +69,20 @@ public class Talkable : MonoBehaviour {
      * is ready to see a change
      **/
     public void Interact() {
-        dialogueBox.text = conversation.getNodes()[convNextPoint].getMessage();
+        dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
+        nameText.text = talkableName;
         int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
         string[] replies = conversation.getNodes()[convNextPoint].getReplies();
-        dialogueButtonOne.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
-        dialogueButtonTwo.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
-
+        buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
+        if (replies.Length > 1)
+        {
+            buttonTwo.SetActive(true);
+            buttonTwoText.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+        }
+        else
+        {
+            buttonTwo.SetActive(false);
+        }
         //dialogueButtonOne.onClick.AddListener(TaskOnClick);
     }
 
@@ -72,27 +95,33 @@ public class Talkable : MonoBehaviour {
         {
             // conversation has been cancelled. kill it here rather than waiting for update. go back to start of convo
             GameState.isTalking = false;
-            myUI.SetActive(false);
+            dialoguePanel.SetActive(false);
             convNextPoint = convEntryPoint;
             // but change the hint text back to what it was pre-conversation
-            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+            hintText.text = hint;
             return;
         }
+
+        // check the user hasn't selecetd 2 when there is only one reply
+        print(reply);
+        print(conversation.getNodes()[convPoint].getReplies().Length);
+        if (reply+1 > conversation.getNodes()[convPoint].getReplies().Length)
+            return;
 
         int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
         if (replyIndex == -1)
         {
             // conversation has ended. kill it here rather than waiting for update.
             GameState.isTalking = false;
-            myUI.SetActive(false);
+            dialoguePanel.SetActive(false);
             convNextPoint = convPoint;
             // but change the hint text back to what it was pre-conversation
-            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+            hintText.text = hint;
             return;
         }
         else if (isPickUp && replyIndex == pickUpIndex) {
             GameState.isTalking = false;
-            myUI.SetActive(false);
+            dialoguePanel.SetActive(false);
             convNextPoint = convPoint;
             GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
             if (!stayAfterPickUp) {
@@ -110,19 +139,19 @@ public class Talkable : MonoBehaviour {
         print(other.tag);
         if (GameState.isTalking)
         {
-            hintUI.SetActive(true);
-            GameObject.Find("Hint Text").GetComponent<Text>().text = "1 & 2: Conversation Replies\n E: Exit Conversation";
+            hintPanel.SetActive(true);
+            hintText.text = "1 & 2: Conversation Replies\n E: Exit Conversation";
         }
         else if (other.tag == "Player" && GameState.GetActiveCharacter() == other.gameObject)
         {
-            hintUI.SetActive(true);
-            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+            hintPanel.SetActive(true);
+            hintText.text = hint;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        hintUI.SetActive(false);
+        hintPanel.SetActive(false);
     }
 
 }

@@ -2551,7 +2551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &553199496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3198,6 +3198,16 @@ Prefab:
         type: 2}
       propertyPath: m_Center.y
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114974293367564054, guid: 1dd72950181f8be498d96c06a617adff,
+        type: 2}
+      propertyPath: hint
+      value: (E) to talk to Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 114974293367564054, guid: 1dd72950181f8be498d96c06a617adff,
+        type: 2}
+      propertyPath: talkableName
+      value: Tiger
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114166154959213834, guid: 1dd72950181f8be498d96c06a617adff, type: 2}
