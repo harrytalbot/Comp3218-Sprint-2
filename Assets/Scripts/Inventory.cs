@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour {
     public bool otherStuff2;
 
     public void Add(string objectName) {
-
+    
         if (objectName.Equals("Gate Key")) {
             gateKey = true;
         }
