@@ -17,13 +17,11 @@ public class NavFollowPlayer : MonoBehaviour {
 	void Start () {
         npc = GetComponent<NavMeshAgent>();
         npcObject = gameObject;
-        characterNumber = GetComponent<PlayerController>().characterNumber;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameState.IsUnlocked(characterNumber)) {
-            print("unlocked");
+        if (GameState.IsUnlocked(npcObject)) {
             player = GameState.GetActiveCharacter();
 
             if (!player.Equals(npcObject) && reset) {
