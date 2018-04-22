@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
     public Camera mainCam;
     private Talkable tk;
+    public SphereCollider hintCollider;
 
     public float moveSpeed;
     public float rotationSpeed;
@@ -21,7 +22,9 @@ public class PlayerController : MonoBehaviour {
     
     void Awake() {
 		rb = GetComponent<Rigidbody> ();
-	}
+        hintCollider = GetComponentInChildren<SphereCollider>();
+
+    }
 
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag == "Ground")
@@ -71,26 +74,24 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
             if (Input.GetKeyDown(KeyCode.E)) {
+
+                //disable the sphere collider for use when checking hints, else the raycast will hit it
+                hintCollider.gameObject.SetActive(false);
+                
                 RaycastHit hit;
                 Debug.DrawRay(transform.position, transform.forward*10, Color.green);
                 if (Physics.Raycast(transform.position, transform.forward*10, out hit, activationDistance)) {
                     tk = hit.collider.gameObject.GetComponent<Talkable>();                    
                     if (tk != null) {
 
-                        // make player invisible - needs transparent shader
-                        /*
-                         * Material mat = transform.Find("Renderer").GetComponentInChildren<SkinnedMeshRenderer>().material;
-                        Color newColor = mat.color;
-                        newColor.a = 0.2f;
-                        mat.color = newColor;
-                        */
-
-
                         tk.Interact();
                         GameState.isTalking = true;
                         GameState.conversationUI.SetActive(true);
                     }
                 }
+
+                //reenable the sphere collider for use when checking hints
+                hintCollider.gameObject.SetActive(true);
             }
         }
     }

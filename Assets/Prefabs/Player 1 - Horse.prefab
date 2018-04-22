@@ -1539,8 +1539,8 @@ MonoBehaviour:
   rotationSpeed: 3
   jumpHeight: 2
   maxVelocityChange: 10
-  activationDistance: 3
-  characterNumber: 1
+  activationDistance: 4
+  characterNumber: 0
 --- !u!114 &114418790410122900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1701,7 +1701,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1858153951710108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 92.91}
+  m_LocalPosition: {x: 0, y: 0, z: 122.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4613578681386654}
@@ -1711,6 +1711,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47.32, y: 1}
+  m_AnchoredPosition: {x: 194.8, y: 4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}

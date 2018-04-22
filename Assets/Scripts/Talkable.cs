@@ -68,9 +68,16 @@ public class Talkable : MonoBehaviour {
      */
     public void setReply(int reply)
     {
-
-        // get the response
-        if (reply < conversation.getNodes()[convPoint].getReplies().Length) { }
+        if (reply == -2)
+        {
+            // conversation has been cancelled. kill it here rather than waiting for update. go back to start of convo
+            GameState.isTalking = false;
+            myUI.SetActive(false);
+            convNextPoint = convEntryPoint;
+            // but change the hint text back to what it was pre-conversation
+            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
+            return;
+        }
 
         int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
         if (replyIndex == -1)
@@ -79,14 +86,8 @@ public class Talkable : MonoBehaviour {
             GameState.isTalking = false;
             myUI.SetActive(false);
             convNextPoint = convPoint;
-            return;
-        }
-        if (replyIndex == -2)
-        {
-            // conversation has been cancelled. kill it here rather than waiting for update. go back to start of convo
-            GameState.isTalking = false;
-            myUI.SetActive(false);
-            convNextPoint = convEntryPoint;
+            // but change the hint text back to what it was pre-conversation
+            GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
             return;
         }
         else if (isPickUp && replyIndex == pickUpIndex) {
@@ -106,7 +107,13 @@ public class Talkable : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.tag == "Player")
+        print(other.tag);
+        if (GameState.isTalking)
+        {
+            hintUI.SetActive(true);
+            GameObject.Find("Hint Text").GetComponent<Text>().text = "1 & 2: Conversation Replies\n E: Exit Conversation";
+        }
+        else if (other.tag == "Player" && GameState.GetActiveCharacter() == other.gameObject)
         {
             hintUI.SetActive(true);
             GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;

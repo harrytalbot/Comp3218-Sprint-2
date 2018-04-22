@@ -18,7 +18,7 @@ public class GateUnlock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.tag == "Player")
+        if (other.tag == "Player")
         {
             hintUI.SetActive(true);
             GameObject.Find("Hint Text").GetComponent<Text>().text = hintUIText;
@@ -32,7 +32,11 @@ public class GateUnlock : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) & other.transform.parent.tag == "Player" & GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey)
+<<<<<<< HEAD
+        // if the other collider is the player, the user presses e and they have the key
+=======
+>>>>>>> 68b29e09814371b54d8cc8e61fe97b1f9d0ac33e
+        if (Input.GetKeyDown(KeyCode.E) && other.transform.parent.tag == "Player" && GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey)
         {
             // open gate
             openGate = true;

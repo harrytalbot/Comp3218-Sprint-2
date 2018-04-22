@@ -13,7 +13,7 @@ public class Collectable : MonoBehaviour {
 	
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.Q) & other.transform.parent.tag == "Player")
+        if (Input.GetKeyDown(KeyCode.Q) && other.transform.parent.tag == "Player")
         {
                     print("asas)");
 

@@ -3820,6 +3820,8 @@ GameObject:
   - component: {fileID: 114974293367564054}
   - component: {fileID: 114150126553976834}
   - component: {fileID: 135578197326457678}
+  - component: {fileID: 114166154959213834}
+  - component: {fileID: 195868320865876220}
   m_Layer: 0
   m_Name: Player 2 - Tiger
   m_TagString: Player
@@ -5760,15 +5762,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1695203015245748}
-  m_LocalRotation: {x: -0, y: -0.4762536, z: -0, w: 0.879308}
-  m_LocalPosition: {x: 15.995143, y: 1.59, z: 68.71785}
+  m_LocalRotation: {x: -0, y: -0.7991932, z: -0, w: 0.6010742}
+  m_LocalPosition: {x: 202.81, y: 2, z: 128.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4517677079968124}
   - {fileID: 4489671930831916}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -56.882004, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -106.106, z: 0}
 --- !u!4 &4113522961668562
 Transform:
   m_ObjectHideFlags: 1
@@ -10391,6 +10393,17 @@ MonoBehaviour:
   gateKey: 0
   otherStuff1: 0
   otherStuff2: 0
+--- !u!114 &114166154959213834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695203015245748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee9f8c8009f8f940a3efe23ad5027a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114394151331986870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10419,7 +10432,7 @@ MonoBehaviour:
   jumpHeight: 2
   maxVelocityChange: 10
   activationDistance: 3
-  characterNumber: 2
+  characterNumber: 1
 --- !u!114 &114974293367564054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10434,6 +10447,8 @@ MonoBehaviour:
   isPickUp: 0
   stayAfterPickUp: 1
   pickUpIndex: 0
+  hintUIText: 
+  successfullCoversationScript: {fileID: 0}
   convEntryPoint: 0
   conversation:
     nodes:
@@ -10447,6 +10462,7 @@ MonoBehaviour:
       replies:
       - First Message!
       - Finish Conversation!
+  hintUI: {fileID: 0}
 --- !u!124 &124436169405170892
 Behaviour:
   m_ObjectHideFlags: 1
@@ -10559,3 +10575,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.13687041, y: -0.000010430813, z: 0.17424265}
     m_Extent: {x: 0.8534912, y: 0.18906924, z: 0.40140685}
   m_DirtyAABB: 0
+--- !u!195 &195868320865876220
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695203015245748}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

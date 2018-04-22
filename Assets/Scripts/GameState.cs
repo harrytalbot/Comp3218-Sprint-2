@@ -18,8 +18,11 @@ public class GameState : MonoBehaviour {
     public bool character3Active = false;
     public bool character4Active = false;
     public bool debug;
-    
-	void Awake () {
+
+    public GameObject[] tempObjects;
+
+
+    void Awake () {
         if (initialCharacter == 0)
             character1Active = true;
         else if (initialCharacter == 1)
@@ -35,7 +38,7 @@ public class GameState : MonoBehaviour {
         conversationUI = GameObject.FindGameObjectWithTag("DialogueBox");
         hintUI = GameObject.FindGameObjectWithTag("Hint");
 
-        GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("Player");
+        tempObjects = GameObject.FindGameObjectsWithTag("Player");
         inventoryIcons = GameObject.FindGameObjectsWithTag("Item");
 
         for (int i = 0; i < tempObjects.Length; i++) {
