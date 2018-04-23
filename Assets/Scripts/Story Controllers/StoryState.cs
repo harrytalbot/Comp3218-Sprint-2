@@ -144,6 +144,12 @@ public class StoryState : MonoBehaviour {
                     }
                 }
 
+                if (CatStatus == 3)
+                {
+                    //activate cat
+                }
+                    
+
                 return CatStarts[CatStatus];
             }
         }
