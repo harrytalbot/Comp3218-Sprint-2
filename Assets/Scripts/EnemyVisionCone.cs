@@ -17,6 +17,7 @@ public class EnemyVisionCone : MonoBehaviour {
     private GameObject[] targets;
     private Mesh myMesh;
     private Material material;
+    private Color originalColor;
 
     private Vector3[] verts;
     private Vector3[] normals;
@@ -40,6 +41,7 @@ public class EnemyVisionCone : MonoBehaviour {
         material = GetComponent<Renderer>().material;
         originalDirection = transform.forward;
         originalSpot = transform.position;
+        originalColor = material.color;
         myMesh = gameObject.GetComponent<MeshFilter>().mesh;
         myMesh.Clear();
         actualAngle = 90.0f - coneAngle;
@@ -94,7 +96,7 @@ public class EnemyVisionCone : MonoBehaviour {
             }
             else if (chaseDistance >= maxChaseDistance && chaseDistance != Mathf.Infinity) { // You escaped!
                 detected = false;
-                material.color = Color.green;
+                material.color = originalColor;
                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(originalSpot);
             }
             else if (chaseDistance <= minChaseDistance) { // You were caught!
@@ -119,7 +121,7 @@ public class EnemyVisionCone : MonoBehaviour {
                     if (angle <= coneAngle && targetDistance <= coneDistance) {
                         transform.LookAt(targets[i].transform);
                         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out shot)) {
-                            if (shot.collider.gameObject.Equals(targets[i])) {
+                            if (shot.collider.gameObject.Equals(targets[i]) || shot.collider.transform.parent.gameObject.Equals(targets[i])) {
                                 material.color = Color.red;
                                 chaseTarget = targets[i];
                                 Debug.Log(chaseTarget.name);
