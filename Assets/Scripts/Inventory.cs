@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour {
 
     public bool gateKey;
+    public bool bucket;
     public bool otherStuff1;
     public bool otherStuff2;
 
@@ -12,6 +13,9 @@ public class Inventory : MonoBehaviour {
     
         if (objectName.Equals("Gate Key")) {
             gateKey = true;
+        }
+        else if(objectName.Equals("Bucket")) {
+            bucket = true;
         }
         else if (objectName.Equals("Other Stuff")) {
             otherStuff1 = true; // Placeholder
@@ -24,6 +28,10 @@ public class Inventory : MonoBehaviour {
     public bool GotItem(string objectName) {
         if (objectName.Equals("Gate Key")) {
             return gateKey;
+        }
+        else if (objectName.Equals("Bucket"))
+        {
+            return bucket;
         }
         else if (objectName.Equals("Other Stuff")) {
             return otherStuff1; // Placeholder

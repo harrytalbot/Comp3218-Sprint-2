@@ -6,23 +6,23 @@ using UnityEngine.SceneManagement;
 public class StoryState : MonoBehaviour {
 
     // each thing that is talkable has a status defining how far into conversation(s) the player has got.
-    static int FarmerStatus, SheepStatus;
-    static int DonkeyStatus, CatStatus, DogStatus;
+    int FarmerStatus, SheepStatus;
+    int DonkeyStatus, CatStatus, TigerStatus;
 
     // this status comes from the return value of the convesation when it's less that 0, e.g. returning -3 means 
     // the conversation finished successfully to the level 3 in storystate
 
     // also keeps track of the conversation start point, as it will decide where conversations should be started from
     static int FarmerStart, SheepStart;
-    static int DonkeyStart, CatStart, DogStart;
+    static int DonkeyStart, CatStart, TigerStart;
 
     // keep track of where the start points should be for each level as an array, find the right start point given a level as FarmerStarts[FarmerStatus]
     int[] FarmerStarts, SheepStarts;
-    int[] DonkeyStarts, CatStarts, DogStarts;
+    int[] DonkeyStarts, CatStarts, TigerStarts;
 
     // Talkable references
     Talkable tkFarmer, tkSheep;
-    Talkable tkDonkey, tkCat, tkDog;
+    Talkable tkDonkey, tkCat, tkTiger;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,19 +57,19 @@ public class StoryState : MonoBehaviour {
         {
             DonkeyStarts = new int[] { 0 };
             CatStarts = new int[] { 0, 6, 7, 11, 12 }; // 0 = first conversation, 6 = has said will catch mice but hasn't caught enough, 7 = has catch enough, 11 = convo when in team, 12 = convo when staying put
-            DogStarts = new int[] { 0 };
+            TigerStarts = new int[] { 0, 5, 6, 8, 10, 15, 16 }; //0 = first, 5 = hasn't got water, 6 = has got water, 8 = asking again, 10 = after given water, 15 = is coming to city, 
 
             DonkeyStatus = 0; DonkeyStart = DonkeyStarts[DonkeyStatus];
             CatStatus = 0; CatStart = CatStarts[CatStatus];
-            DogStatus = 0; DogStart = DogStarts[DogStatus];
+            TigerStatus = 0; TigerStart = TigerStarts[TigerStatus];
 
             tkDonkey = GameObject.FindGameObjectWithTag("Donkey").transform.parent.GetComponent<Talkable>();
             tkDonkey.setStartPoint(DonkeyStarts[DonkeyStatus]);
             tkCat = GameObject.FindGameObjectWithTag("Cat").transform.parent.GetComponent<Talkable>();
             tkCat.setStartPoint(CatStarts[CatStatus]);
 
-            // tkDog = GameObject.FindGameObjectWithTag("Dog").transform.parent.GetComponent<Talkable>();
-            // tkDog.setStartPoint(DogStarts[DogStatus]);
+            tkTiger = GameObject.FindGameObjectWithTag("Tiger").transform.parent.GetComponent<Talkable>();
+            tkTiger.setStartPoint(TigerStarts[TigerStatus]);
 
             setupMainConversations();
 
@@ -146,12 +146,32 @@ public class StoryState : MonoBehaviour {
 
                 if (CatStatus == 3)
                 {
-                   // GameState.UnlockCharacter(tkCat.transform.GetComponent<PlayerController>().characterNumber);
+                    GameState.UnlockCharacter(tkCat.transform.GetComponent<PlayerController>().characterNumber);
                 }
-                    
+
 
                 return CatStarts[CatStatus];
             }
+
+            else if (talkableName == "Donkey")
+            {
+                DonkeyStatus = level;
+
+                return DonkeyStarts[DonkeyStatus];
+            }
+
+            else if (talkableName == "Tiger")
+            {
+                TigerStatus = level;
+
+                if (TigerStatus == 5)
+                {
+                    GameState.UnlockCharacter(tkTiger.transform.GetComponent<PlayerController>().characterNumber);
+                }
+
+                return TigerStarts[TigerStatus];
+            }
+
         }
 
         return 0;          
@@ -198,9 +218,15 @@ public class StoryState : MonoBehaviour {
             }
 
         }
+        else if (itemName == "Bucket")
+        {
+            print("water");
+            TigerStatus = 2;
+            tkTiger.setStartPoint(TigerStarts[TigerStatus]);
+        }
     }
 
-    void setupFarmConversations()
+       void setupFarmConversations()
     {
         Conversation farmerConvo = new Conversation();
 
@@ -269,7 +295,7 @@ public class StoryState : MonoBehaviour {
 
     void setupMainConversations()
     {
-        /*
+        
         Conversation donkeyConvo = new Conversation();
 
         string[] donkeyMessages = new string[] {
@@ -281,9 +307,8 @@ public class StoryState : MonoBehaviour {
         };
 
         tkDonkey.conversation = donkeyConvo;
-        */
+        
         Conversation catConvo = new Conversation();
-
 
         string[] catMessages = new string[] {
             "0 Ah, another animal, out on the road to the big city.",
@@ -320,7 +345,51 @@ public class StoryState : MonoBehaviour {
 
         tkCat.conversation = catConvo;
 
+        Conversation tigerConvo = new Conversation();
 
+        string[] tigerMessages = new string[] {
+            "0 Need... Water... So Thirsty in this heat....",
+            "1 I can't handle the heat... I've been shunned from my family, and moved here from Asia, but it's still too hot.",
+            "2 I'm so lost, and dehydrated, I've no idea where to get one.",
+            "3 Do You?! Please, bring it to me, I'll forever be in your debt.",
+            " ",
+            "5 Have you got the water?", // hasn't got water
+            "6 Have you got the water?", //has got water
+            " ",
+            "8 Have you found some water anywhere?",
+            " ",
+            "10 Sir, I owe you my life. However can I repay you?",
+            "11 With pleasure! Back home I was a Drummer, and longed of being famous in a band!",
+            "12 Ummm.... you have no idea what you're doing?",
+            "  ",
+            "14 After my near death experience I don't think I can chance that. Best of luck with your travels, I'll be staying here.",
+            "15 Onwards, lead the way to the city lights!",
+            "16 I'm sure I'll get used to the heat eventually... eventually... ",
+        };
+
+        tigerConvo.nodes = new Conversation.ConversationNode[]{
+            new Conversation.ConversationNode(tigerMessages[0], new int[] { 1, 2}, new string[] { "How are you thirsty? It's barely 20C, and you're a tiger.", "Don't you know where to grab a drink?" }),
+            new Conversation.ConversationNode(tigerMessages[1], new int[] { 2 }, new string[] { "Surely there must be somewhere round here you can get a drink?", "Thanks, I'll be on my way then!" }),
+            new Conversation.ConversationNode(tigerMessages[2], new int[] { 3 }, new string[] { "I know where I can get some water..", "I'm afraid I'm new round here too. I've no idea where to go."}),
+            new Conversation.ConversationNode(tigerMessages[3], new int[] { -1 }, new string[] { "Will do."}),
+            new Conversation.ConversationNode(tigerMessages[4], new int[] { }, new string[] { }),
+            new Conversation.ConversationNode(tigerMessages[5], new int[] { -3}, new string[] { "I'll be honest, I don't know where to find any.", "Not yet!"}),
+            new Conversation.ConversationNode(tigerMessages[6], new int[] {10 }, new string[] { "Here it is!"}),
+            new Conversation.ConversationNode(tigerMessages[7], new int[] { }, new string[] { }),
+            new Conversation.ConversationNode(tigerMessages[8], new int[] {-1 }, new string[] { "Yes, I'll go and get some now!", "No, Sorry!"}),
+            new Conversation.ConversationNode(tigerMessages[9], new int[] { }, new string[] { }),
+            new Conversation.ConversationNode(tigerMessages[10], new int[] {11, 12 }, new string[] {"Well, I'm going to The city to become a musician. Would you like to come along?", "I've left everything I know to go to the city with no real idea what I'm doing. Wanna come?"}),
+            new Conversation.ConversationNode(tigerMessages[11], new int[] {-5 }, new string[] { "Follow me!"}),
+            new Conversation.ConversationNode(tigerMessages[12], new int[] {11, 14 }, new string[] { "Well, The plan really is to become musicians. Come with us!", "Hardly. I am just a Donkey, after all."}),
+            new Conversation.ConversationNode(tigerMessages[13], new int[] { }, new string[] { }),
+            new Conversation.ConversationNode(tigerMessages[14], new int[] {-6 }, new string[] { "Suit yourself. Anway, see ya!"}),
+            new Conversation.ConversationNode(tigerMessages[15], new int[] {-5 }, new string[] { "This way!"}),
+            new Conversation.ConversationNode(tigerMessages[16], new int[] { -6 }, new string[] { "I'll remember you when I'm famous!" }),
+
+
+        };
+
+        tkTiger.conversation = tigerConvo;
 
 
     }

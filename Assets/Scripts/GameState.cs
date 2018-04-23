@@ -20,6 +20,8 @@ public class GameState : MonoBehaviour {
     public bool character3Active = false;
     public bool character4Active = false;
 
+    public bool canControlOtherCharacters = false;
+
     public bool debug;
 
     public GameObject[] tempObjects;
@@ -85,7 +87,7 @@ public class GameState : MonoBehaviour {
 	}
 
     void Update() {
-        if (!isTalking) {
+        if (!isTalking && canControlOtherCharacters) {
             if (Input.GetKeyDown(KeyCode.Alpha1) && !(activeCharacter == 0) && charactersGot[0]) {
                 SwapCharacter(0);
             }
@@ -129,6 +131,11 @@ public class GameState : MonoBehaviour {
 
     public static void UnlockCharacter(int character) {
         charactersGot[character] = true;
+    }
+
+    public static void LockCharacter(int character)
+    {
+        charactersGot[character] = false;
     }
 
     public static void UpdateIcon(Inventory inventory) {
