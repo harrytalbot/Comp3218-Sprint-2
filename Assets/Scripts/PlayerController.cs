@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) && (other.gameObject.GetComponent<Talkable>() != null))
+        if (Input.GetKeyDown(KeyCode.E) && (other.gameObject.GetComponent<Talkable>() != null) && GameState.activeCharacter == characterNumber)
         {
             other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
             tk = other.gameObject.GetComponent<Talkable>();
@@ -126,8 +126,9 @@ public class PlayerController : MonoBehaviour {
             transform.LookAt(new Vector3(GameState.GetActiveCharacter().transform.position.x, transform.position.y, GameState.GetActiveCharacter().transform.position.z));
         }
 
+        //print("active character: " + GameState.activeCharacter);
 
-        if (GameState.isTalking && GameState.activeCharacter == characterNumber) {
+        if (GameState.activeCharacter == characterNumber && GameState.isTalking) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 // pick option 1
                tk.setReply(1);

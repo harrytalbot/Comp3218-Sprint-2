@@ -74,7 +74,7 @@ public class Talkable : MonoBehaviour {
      * is ready to see a change
      **/
     public void Interact() {
-        print(convNextPoint);
+        print(talkableName);
         dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
         nameText.text = talkableName;
         int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
@@ -163,15 +163,20 @@ public class Talkable : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if (other.tag == "Player" && GameState.GetActiveCharacter() == other.gameObject)
+        {
+            hintPanel.SetActive(true);
+            hintText.text = hint;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         if (GameState.isTalking)
         {
             hintPanel.SetActive(true);
             hintText.text = "1 & 2: Conversation Replies\n E: Exit Conversation";
-        }
-        else if (other.tag == "Player" && GameState.GetActiveCharacter() == other.gameObject)
-        {
-            hintPanel.SetActive(true);
-            hintText.text = hint;
         }
     }
 
