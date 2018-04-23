@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Farm Level.unity
     guid: 820c15d80a93c914fbffd157715ccad0
+  - enabled: 1
+    path: Assets/_Scenes/House Level.unity
+    guid: b474209f2eef922479d55a2b90d53c26
