@@ -7,7 +7,7 @@ public class GameState : MonoBehaviour {
 
     private static GameObject[] playerObjects = new GameObject[4];
     private static GameObject[] inventoryIcons;
-    private static GameObject[] enemies;
+    private static GameObject[] enemies; 
 
     public static GameObject conversationUI;
     public static GameObject hintUI;
@@ -38,9 +38,9 @@ public class GameState : MonoBehaviour {
         else if (initialCharacter == 3)
             character4Active = true;
 
-        if (SceneManager.GetActiveScene().name.Contains("House")) {
-            enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        }
+        if (SceneManager.GetActiveScene().name.Contains("House")) { 
+            enemies = GameObject.FindGameObjectsWithTag("Enemy"); 
+        } 
 
         charactersGot[initialCharacter] = true;
         activeCharacter = initialCharacter;
