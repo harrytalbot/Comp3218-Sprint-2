@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour {
                 // pick option 2
                 tk.setReply(2);
             }
-            else if (Input.GetKeyDown(KeyCode.E) && GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("TalkAnim")) {
+            else if (Input.GetKeyDown(KeyCode.E) && (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("CatTalkAnim") || GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("DonkeyTalkAnim"))) {
                 // Cancel conversation
                 tk.setReply(0);
             }
