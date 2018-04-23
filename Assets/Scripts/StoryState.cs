@@ -15,7 +15,7 @@ public class StoryState : MonoBehaviour {
 
     // keep track of where the start points should be for each level as an array
     int[] FarmerStarts = new int[] { 0, 8 }; // 0 = about leaving, 8 = have you seen my keys
-    int[] SheepStarts = new int[] { 0, 6 }; // 0 = about hearing conversation with farmer, 6 = bleats
+    int[] SheepStarts = new int[] { 0, 6, 8, 11}; // 0 = about hearing conversation with farmer, 6 = has key, 8 = farmer loking for you, 11 = key is by pond
     int[] CatStarts = new int[] { 0, 3 };
 
     // and find the right start point given a level as FarmerStarts[FarmerStatus]
@@ -26,7 +26,7 @@ public class StoryState : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         FarmerStatus = 0;   FarmerStart = FarmerStarts[FarmerStatus];
-        SheepStatus = 1;    SheepStart = SheepStarts[SheepStatus];
+        SheepStatus = 2;    SheepStart = SheepStarts[SheepStatus];
         CatStatus = 0;      CatStart = CatStarts[CatStatus];
 
         tkFarmer = GameObject.FindGameObjectWithTag("Farmer").transform.parent.GetComponent<Talkable>();
@@ -47,8 +47,9 @@ public class StoryState : MonoBehaviour {
                 FarmerStatus = level;
                 if (FarmerStatus == 1)
                 {
+                print("adsad");
                     // had conversation with farmer. sheep will say about hearing it
-                    SheepStart = 0;
+                    SheepStatus = 0;
                     tkSheep.setStartPoint(SheepStarts[SheepStatus]);
                 }
                 // farmer will now just say about loosing keys
@@ -59,14 +60,25 @@ public class StoryState : MonoBehaviour {
         if (talkableName == "Sheep")
         {
             
-                SheepStatus = level;
+            SheepStatus = level;
+
             if (SheepStatus == 1)
             {
-                // keep bleating
+                // keep saying about leaving
                 return SheepStarts[SheepStatus];
             }
 
-            
+            if (SheepStatus == 2)
+            {
+                // keep saying about farmer looking
+                return SheepStarts[SheepStatus];
+            }
+
+            if (SheepStatus == 3)
+            {
+                // keep saying about farmer looking
+                return SheepStarts[SheepStatus];
+            }
 
 
         }
@@ -94,9 +106,9 @@ public class StoryState : MonoBehaviour {
             FarmerStatus = 1;
             tkFarmer.setStartPoint(FarmerStarts[FarmerStatus]);
 
-            // sheep says about escaping (TODO)
-            //SheepStatus = 2;
-            //tkSheep.setStartPoint(SheepStarts[SheepStatus]);
+            // sheep says about escaping
+            SheepStatus = 1;
+            tkSheep.setStartPoint(SheepStarts[SheepStatus]);
         }
     }
 }
