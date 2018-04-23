@@ -14,3 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/House Level.unity
     guid: b474209f2eef922479d55a2b90d53c26
+  - enabled: 1
+    path: Assets/_Scenes/CaughtEnding.unity
+    guid: bb71a5d60ec3883408af39ffd556007d
+  - enabled: 1
+    path: Assets/_Scenes/HouseVictoryEnding.unity
+    guid: 2774eed9b91befa49810ff4f665d31c2

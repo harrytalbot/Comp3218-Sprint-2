@@ -3,31 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Platform
-  - Ground
-  - Interactable
-  - Item
-  - DialogueBox
-  - Mouse
-  - Hint
-  - ButtonTwo
-  - StoryState
-  - Sheep
-  - Farmer
-  - Donkey
-  - Cat
-  - Hint
-  - Hint
-  - Hint
-  - Hint
-  - Hint
-  - Hint
-  - Hint
-<<<<<<< HEAD
-  - Tiger
-=======
->>>>>>> daed242a50a4a7e9bba424d3ea1564d5a6bebac6
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -37,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - 
   - 
   - 
   - 
