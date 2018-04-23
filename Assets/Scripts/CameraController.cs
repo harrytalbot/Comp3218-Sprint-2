@@ -37,10 +37,19 @@ public class CameraController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (!GameState.isTalking && GameState.activeCharacter == pc.characterNumber && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
-            anim.Play("ExitTalkAnim");
-        else if (GameState.isTalking && GameState.activeCharacter == pc.characterNumber)
-            anim.Play("TalkAnim");
+        if (transform.parent.gameObject.name.Contains("Donkey")) {
+            if (!GameState.isTalking && GameState.activeCharacter == pc.characterNumber && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
+                anim.Play("ExitTalkAnim");
+            else if (GameState.isTalking && GameState.activeCharacter == pc.characterNumber)
+                anim.Play("DonkeyTalkAnim");
+        }
+        else if (transform.parent.gameObject.name.Contains("Cat")) {
+            if (!GameState.isTalking && GameState.activeCharacter == pc.characterNumber && anim.GetCurrentAnimatorStateInfo(0).IsName("TalkAnim"))
+                anim.Play("ExitTalkAnim");
+            else if (GameState.isTalking && GameState.activeCharacter == pc.characterNumber)
+                anim.Play("CatTalkAnim");
+        }
+        
         //else if (!GameState.isTalking)
         //transform.position = targetToFollow.position + targetOffset;
     }
