@@ -33,7 +33,7 @@ public class GateUnlock : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         // if the other collider is the player, the user presses e and they have the key
-        if (Input.GetKeyDown(KeyCode.E) && GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey)
+        if (Input.GetKeyDown(KeyCode.E) && GameState.GetActiveCharacter().GetComponent<Inventory>().gateKey && other.gameObject.tag == "Player") 
         {
             // open gate
             openGate = true;

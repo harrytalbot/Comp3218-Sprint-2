@@ -10,13 +10,19 @@ public class Collectable : MonoBehaviour {
     private GameObject hintPanel;
     private Text hintText;
     public string hint;
+    private StoryState storyState;
+
 
     // Use this for initialization
     void Awake() {
+
         hintText = GameObject.Find("Hint Text").GetComponent<Text>();
         hintPanel = GameObject.FindGameObjectWithTag("Hint");
+
+        storyState = GameObject.FindGameObjectWithTag("StoryState").GetComponent<StoryState>();
+
     }
-	
+
     private void OnTriggerStay(Collider other)
     {
         if (Input.GetKeyDown(KeyCode.Q) && other.tag == "Player")
@@ -24,9 +30,11 @@ public class Collectable : MonoBehaviour {
             if (isPickup)
             {
                 GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
+                storyState.collected(gameObject.name);
                 if (!stayAfterPickup)
                 {
                     gameObject.SetActive(false);
+                    hintPanel.SetActive(false);
                 }
             } else
                 //just a mouse or something

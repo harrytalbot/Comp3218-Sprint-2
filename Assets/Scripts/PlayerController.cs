@@ -107,27 +107,18 @@ public class PlayerController : MonoBehaviour {
         if (GameState.isTalking && GameState.activeCharacter == characterNumber) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
                 // pick option 1
-               tk.setReply(0);
+               tk.setReply(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2)) {
                 // pick option 2
-                tk.setReply(1);
+                tk.setReply(2);
             }
             else if (Input.GetKeyDown(KeyCode.E) && GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("TalkAnim")) {
                 // Cancel conversation
-                tk.setReply(-2);
+                tk.setReply(0);
             }
         }
 
-        /*
-        if (!GameState.isTalking) {             
-            // make player visible
-            Material mat = transform.Find("Renderer").GetComponentInChildren<SkinnedMeshRenderer>().material;
-            Color newColor = mat.color;
-            newColor.a = 1;
-            mat.color = newColor;
-        }
-        */
     }
     
 }
