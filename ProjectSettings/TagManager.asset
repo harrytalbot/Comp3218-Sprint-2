@@ -24,7 +24,10 @@ TagManager:
   - Hint
   - Hint
   - Hint
+<<<<<<< HEAD
   - Tiger
+=======
+>>>>>>> daed242a50a4a7e9bba424d3ea1564d5a6bebac6
   layers:
   - Default
   - TransparentFX

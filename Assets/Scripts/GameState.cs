@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour {
 
     private static GameObject[] playerObjects = new GameObject[4];
     private static GameObject[] inventoryIcons;
+    private static GameObject[] enemies;
 
     public static GameObject conversationUI;
     public static GameObject hintUI;
@@ -36,6 +38,10 @@ public class GameState : MonoBehaviour {
         else if (initialCharacter == 3)
             character4Active = true;
 
+        if (SceneManager.GetActiveScene().name.Contains("House")) {
+            enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        }
+
         charactersGot[initialCharacter] = true;
         activeCharacter = initialCharacter;
         isTalking = false;
@@ -57,6 +63,7 @@ public class GameState : MonoBehaviour {
         for (int i = 0; i < playerObjects.Length; i++) {
             if (playerObjects[i] != null) {
                 playerObjects[i].GetComponent<PlayerController>().mainCam.enabled = false;
+                playerObjects[i].GetComponentInChildren<AudioListener>().enabled = false;
             }
         }
         GameObject player = playerObjects[initialCharacter];
@@ -70,6 +77,7 @@ public class GameState : MonoBehaviour {
             }
         }
         player.GetComponent<PlayerController>().mainCam.enabled = true;
+        player.GetComponentInChildren<AudioListener>().enabled = true;
 
         if (debug == true) {
             Debug.Log("Debug enabled. All characters unlocked.\nMay produce Errors if they aren't tagged with 'Player'.");
@@ -108,8 +116,10 @@ public class GameState : MonoBehaviour {
 
     private void SwapCharacter(int characterNum) {
         playerObjects[activeCharacter].GetComponent<PlayerController>().mainCam.enabled = false;
+        playerObjects[activeCharacter].GetComponentInChildren<AudioListener>().enabled = false;
         activeCharacter = characterNum;
         playerObjects[activeCharacter].GetComponent<PlayerController>().mainCam.enabled = true;
+        playerObjects[activeCharacter].GetComponentInChildren<AudioListener>().enabled = true;
     }
 
     public static GameObject GetActiveCharacter() {
