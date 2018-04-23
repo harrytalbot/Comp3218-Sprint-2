@@ -10,7 +10,19 @@ TagManager:
   - Item
   - DialogueBox
   - Mouse
+  - Hint
   - ButtonTwo
+  - StoryState
+  - Sheep
+  - Farmer
+  - Donkey
+  - Cat
+  - Hint
+  - Hint
+  - Hint
+  - Hint
+  - Hint
+  - Hint
   - Hint
   layers:
   - Default

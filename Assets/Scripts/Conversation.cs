@@ -16,11 +16,12 @@ public class Conversation {
     public class ConversationNode
     {
         // the message
-        public string message;
-        // the replies index for this message
-        public int[] repliesIndex;
+        public string message;        
         //the replies
         public string[] replies;
+        // the replies index for this message
+        public int[] repliesIndex;
+
 
         public string getMessage()
         {

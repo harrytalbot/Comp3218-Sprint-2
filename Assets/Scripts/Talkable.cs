@@ -19,11 +19,10 @@ public class Talkable : MonoBehaviour {
     private GameObject buttonOne, buttonTwo;
     private GameObject dialoguePanel, hintPanel;
 
-    // the current conversation poin and the next one
+    // the current conversation point and the next one
     private int convPoint, convNextPoint;
 
-    // script to run if the conversation is a success.
-    public GameObject successfullCoversationScript;
+    private StoryState storyState;
 
     public void Awake() {
         
@@ -36,9 +35,13 @@ public class Talkable : MonoBehaviour {
         buttonTwoText = buttonTwo.GetComponent<Button>().GetComponentInChildren<Text>();
         hintText = GameObject.Find("Hint Text").GetComponent<Text>();
 
+        storyState = GameObject.FindGameObjectWithTag("StoryState").GetComponent<StoryState>();
+
         dialoguePanel = GameObject.FindGameObjectWithTag("DialogueBox");
         hintPanel = GameObject.FindGameObjectWithTag("Hint");
-        convNextPoint = convEntryPoint;
+
+        // find out where to start the conversation from
+        setStartPoint(storyState.GetStartPoint(talkableName));
 
     }
 
@@ -59,8 +62,6 @@ public class Talkable : MonoBehaviour {
             {
                 buttonTwo.SetActive(false);
             }
-
-
         }
     }
 
@@ -83,7 +84,6 @@ public class Talkable : MonoBehaviour {
         {
             buttonTwo.SetActive(false);
         }
-        //dialogueButtonOne.onClick.AddListener(TaskOnClick);
     }
 
     /** 
@@ -91,9 +91,9 @@ public class Talkable : MonoBehaviour {
      */
     public void setReply(int reply)
     {
-        if (reply == -2)
+        if (reply == 0)
         {
-            // conversation has been cancelled. kill it here rather than waiting for update. go back to start of convo
+            // conversation has been cancelled. kill it here rather than waiting for update. don't change convo start point
             GameState.isTalking = false;
             dialoguePanel.SetActive(false);
             convNextPoint = convEntryPoint;
@@ -102,13 +102,35 @@ public class Talkable : MonoBehaviour {
             return;
         }
 
+        // subtract 1 to match array indexing
+        reply--;
+
         // check the user hasn't selecetd 2 when there is only one reply
-        print(reply);
-        print(conversation.getNodes()[convPoint].getReplies().Length);
         if (reply+1 > conversation.getNodes()[convPoint].getReplies().Length)
             return;
 
+
         int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
+
+        if (replyIndex < 0)
+        {
+            // less that 0 means a successful conversation at that level, e.g. returning -3 means 
+            // the conversation finished successfully to the level 3 in storystate (started conv. 2)
+
+            // conversation has ended. kill it here rather than waiting for update.
+            GameState.isTalking = false;
+            dialoguePanel.SetActive(false);
+            // but change the hint text back to what it was pre-conversation
+            hintText.text = hint;
+
+            // tell the story state the conversation has finished so it keeps track
+            convNextPoint = storyState.UpdateStoryProgress(talkableName, -replyIndex);
+            convEntryPoint = convNextPoint;
+            return;
+        }
+
+
+        /*
         if (replyIndex == -1)
         {
             // conversation has ended. kill it here rather than waiting for update.
@@ -117,8 +139,13 @@ public class Talkable : MonoBehaviour {
             convNextPoint = convPoint;
             // but change the hint text back to what it was pre-conversation
             hintText.text = hint;
+
+            // tell the story state the conversation has finished so it keeps track
+            storyState.UpdateStoryProgress(this);
+
             return;
         }
+        
         else if (isPickUp && replyIndex == pickUpIndex) {
             GameState.isTalking = false;
             dialoguePanel.SetActive(false);
@@ -128,10 +155,20 @@ public class Talkable : MonoBehaviour {
                 gameObject.SetActive(false);
             }
         }
-        else {
-            //update the response so fixedUpdate will see the difference
+        */
+
+        else
+        {
+            //conversation still going . update the response so fixedUpdate will see the difference
             convNextPoint = replyIndex;
         }
+    }
+
+    public void setStartPoint(int startPoint)
+    {
+        convEntryPoint = startPoint;
+
+        convNextPoint = startPoint;
     }
 
     private void OnTriggerEnter(Collider other)

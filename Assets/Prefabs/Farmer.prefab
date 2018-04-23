@@ -31,6 +31,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1621461468962990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4870292341843270}
+  m_Layer: 0
+  m_Name: Tag
+  m_TagString: Farmer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1855879256398686
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +75,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4861707259089238}
+  - {fileID: 4870292341843270}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 20.867, z: 0}
@@ -75,6 +91,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4589750324236966}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4870292341843270
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621461468962990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4589750324236966}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23818542099982662
 MeshRenderer:
@@ -207,46 +236,79 @@ MonoBehaviour:
     - message: 0 Donkey, I'm afraid I have some bad news to tell you. I've been out
         on the fields today and the crop is looking terrible. I don't know what's
         gone wrong, and it's nearly time for harvest which only worries me more.
-      repliesIndex: 0100000002000000
       replies:
       - What can we do? Surely it's not too late to get out there and put in extra
         work.
       - Well, you did spend most of the summer lying around in the sun, doing nothing.
+      repliesIndex: 0100000002000000
     - message: 1 Well that's the bad news. It's not what we can do, it's what I can
         do. You're old and tired, and not much use in the fields any more...
-      repliesIndex: 0300000004000000
       replies:
       - 'What are you trying to say? '
       - 'About time I retired! '
+      repliesIndex: 0300000004000000
     - message: 2 I think you mean you spent most of the summer lying around doing
         nothing, you lazy mule. I needed your help and now... I'm going to have to
         sell you.
-      repliesIndex: 05000000
       replies:
       - Selling?! Surely there's no need for that!
+      repliesIndex: 05000000
     - message: 3 There's a farm over the Hill that has offered me good money for your,
         considering your age. I have bills due and so you'll be leaving tomorrow.
-      repliesIndex: 05000000
       replies:
       - So just like that, you're getting rid of me?
+      repliesIndex: 05000000
     - message: '4 That''s not what I meant... I''m going to have to sell you. I need
         the money fast. '
-      repliesIndex: 05000000
       replies:
       - So just like that, you're getting rid of me?
+      repliesIndex: 05000000
     - message: 5 Unfortunately it's my only option.. All the other livestock will
         make me money over time - the sheep, chickens and cows. You just cost me more
         and more
-      repliesIndex: 06000000ffffffff
       replies:
       - I'd make more money for you if I wasn't so old!
       - I'd make money for you if I cared about this farm more!
+      repliesIndex: 06000000ffffffff
     - message: 6 I know, and I hope you understand this wasn't an easy decision for
         me to make. Now, I need to go and repair my car...
-      repliesIndex: ffffffff
       replies:
       - I better go and say my goodbyes to the others then.
-  successfullCoversationScript: {fileID: 0}
+      repliesIndex: ffffffff
+    - message: 7
+      replies: []
+      repliesIndex: 
+    - message: 8 Have you seen my Keys anywhere? they've been missing for days now...
+      replies:
+      - Nope, Sorry!
+      repliesIndex: f8ffffff
+    - message: 9
+      replies: []
+      repliesIndex: 
+    - message: 10
+      replies:
+      - I better go and say my goodbyes to the others then.
+      repliesIndex: ffffffff
+    - message: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      replies:
+      - I better go and say my goodbyes to the others then.
+      repliesIndex: ffffffff
+    - message: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      replies:
+      - I better go and say my goodbyes to the others then.
+      repliesIndex: ffffffff
+    - message: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      replies:
+      - I better go and say my goodbyes to the others then.
+      repliesIndex: ffffffff
+    - message: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      replies:
+      - I better go and say my goodbyes to the others then.
+      repliesIndex: ffffffff
 --- !u!136 &136705745160209198
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -6,22 +6,24 @@ public class GameState : MonoBehaviour {
 
     private static GameObject[] playerObjects = new GameObject[4];
     private static GameObject[] inventoryIcons;
+
     public static GameObject conversationUI;
     public static GameObject hintUI;
-    public GameObject convUIForInspector;
+
+    public int initialCharacter;
     private static bool[] charactersGot = new bool[4];
     public static int activeCharacter;
     public static bool isTalking;
-    public int initialCharacter;
+
     public bool character1Active = false;
     public bool character2Active = false;
     public bool character3Active = false;
     public bool character4Active = false;
+
     public bool debug;
 
     public GameObject[] tempObjects;
-
-
+    
     void Awake () {
         if (initialCharacter == 0)
             character1Active = true;
