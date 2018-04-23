@@ -22,7 +22,6 @@ public class NavFollowPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (GameState.IsUnlocked(npcObject)) {
-            print("unlocked");
             player = GameState.GetActiveCharacter();
 
             if (!player.Equals(npcObject) && reset) {

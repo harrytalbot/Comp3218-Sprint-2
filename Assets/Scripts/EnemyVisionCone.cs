@@ -16,7 +16,7 @@ public class EnemyVisionCone : MonoBehaviour {
     private float segmentAngle;
     private GameObject[] targets;
     private Mesh myMesh;
-    private Material material;
+    public Material material;
     private Color originalColor;
 
     private Vector3[] verts;
@@ -32,6 +32,11 @@ public class EnemyVisionCone : MonoBehaviour {
     private bool detected = false;
     private GameObject chaseTarget;
     private GameObject enemyObject;
+
+    public bool alerted = false;
+    private bool distracted = false;
+    private float distractTime = 0;
+    public GameObject knocked;
     
 
 	// Use this for initialization
@@ -91,7 +96,11 @@ public class EnemyVisionCone : MonoBehaviour {
 
         if (detected) {
             float chaseDistance = enemyObject.GetComponent<NavMeshAgent>().remainingDistance;
+            float straightLineDistance = Vector3.Distance(enemyObject.transform.position, chaseTarget.transform.position);
             if (chaseDistance > minChaseDistance && chaseDistance < maxChaseDistance) { // He's still chasing you!
+                enemyObject.GetComponent<NavMeshAgent>().SetDestination(chaseTarget.transform.position);
+            }
+            else if (chaseDistance < minChaseDistance && straightLineDistance > minChaseDistance) {
                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(chaseTarget.transform.position);
             }
             else if (chaseDistance >= maxChaseDistance && chaseDistance != Mathf.Infinity) { // You escaped!
@@ -99,10 +108,18 @@ public class EnemyVisionCone : MonoBehaviour {
                 material.color = originalColor;
                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(originalSpot);
             }
-            else if (chaseDistance <= minChaseDistance) { // You were caught!
+            else if (chaseDistance <= minChaseDistance && straightLineDistance <= minChaseDistance) { // You were caught!
                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(enemyObject.transform.position);
                 enemyObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                material.color = Color.black;
             }
+        }
+        else if (distracted && !alerted) {
+
+        }
+        else if (alerted && enemyObject.GetComponent<NavMeshAgent>().desiredVelocity.Equals(new Vector3(0, 0, 0))) {
+            transform.parent.LookAt(knocked.transform);
+            transform.parent.eulerAngles = new Vector3(0, transform.parent.eulerAngles.y, 0);
         }
         else if (!detected && enemyObject.GetComponent<NavMeshAgent>().desiredVelocity.Equals(new Vector3(0, 0, 0)) && !transform.forward.Equals(originalDirection)) { // Reset orientation
             transform.parent.forward = originalDirection;
@@ -112,6 +129,7 @@ public class EnemyVisionCone : MonoBehaviour {
         Vector3 frontDirection = transform.parent.forward;
 
         if (!detected) {
+            enemyObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             for (int i = 0; i < targets.Length; i++) {
                 if (targets[i] != null) {
                     targetDirection = targets[i].transform.position - transform.position;
@@ -127,6 +145,11 @@ public class EnemyVisionCone : MonoBehaviour {
                                 Debug.Log(chaseTarget.name);
                                 detected = true;
                                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(chaseTarget.transform.position);
+                                transform.forward = frontDirection;
+                                if (alerted || distracted) {
+                                    alerted = false;
+                                    distracted = false;
+                                }
                             }
                             else
                                 transform.forward = beforeDirection;
@@ -134,9 +157,9 @@ public class EnemyVisionCone : MonoBehaviour {
                     }
                 }
             }
-            if (sweep && Vector3.Angle(transform.forward, frontDirection) < sweepAngle)
+            if (!distracted && sweep && Vector3.Angle(transform.forward, frontDirection) < sweepAngle)
                 transform.Rotate(Vector3.up, sweepSpeed * Time.deltaTime);
-            else {
+            else if (!distracted && sweep) {
                 sweepSpeed = -sweepSpeed;
                 while (Vector3.Angle(transform.forward, frontDirection) > sweepAngle) {
                     transform.Rotate(Vector3.up, sweepSpeed * 0.01f);
@@ -144,5 +167,27 @@ public class EnemyVisionCone : MonoBehaviour {
 
             }
         }
+        if (distracted && distractTime > 0) {
+            distractTime -= Time.deltaTime;
+        }
+        else if (distracted && distractTime <= 0) {
+            distracted = false;
+        }
+    }
+
+    public void GetScared() {
+        enemyObject.GetComponent<NavMeshAgent>().SetDestination(new Vector3(0, 0, 75));
+        enemyObject.GetComponent<NavMeshAgent>().speed *= 5;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        enabled = false;
+    }
+
+    public void GetDistracted(Transform duck, float time) {
+        if (!distracted) {
+            distracted = true;
+            transform.parent.LookAt(duck.transform);
+            transform.parent.eulerAngles = new Vector3(0, transform.parent.eulerAngles.y, 0);
+            distractTime = time;
+        }        
     }
 }

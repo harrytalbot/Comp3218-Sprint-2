@@ -24,6 +24,7 @@ TagManager:
   - Hint
   - Hint
   - Hint
+  - Enemy
   layers:
   - Default
   - TransparentFX
