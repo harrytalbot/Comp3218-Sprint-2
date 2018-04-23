@@ -74,6 +74,7 @@ public class Talkable : MonoBehaviour {
      * is ready to see a change
      **/
     public void Interact() {
+        print(convNextPoint);
         dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
         nameText.text = talkableName;
         int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
@@ -98,6 +99,7 @@ public class Talkable : MonoBehaviour {
     {
         if (reply == 0)
         {
+            print("e");
             // conversation has been cancelled. kill it here rather than waiting for update. don't change convo start point
             GameState.isTalking = false;
             dialoguePanel.SetActive(false);
@@ -128,8 +130,6 @@ public class Talkable : MonoBehaviour {
         }
 
         int replyIndex = conversation.getNodes()[convPoint].getReplyPointers()[reply];
-
-        print(replyIndex);
 
         if (replyIndex < 0)
         {

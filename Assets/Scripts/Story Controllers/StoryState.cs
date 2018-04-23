@@ -146,7 +146,7 @@ public class StoryState : MonoBehaviour {
 
                 if (CatStatus == 3)
                 {
-                    //activate cat
+                   // GameState.UnlockCharacter(tkCat.transform.GetComponent<PlayerController>().characterNumber);
                 }
                     
 
@@ -269,6 +269,7 @@ public class StoryState : MonoBehaviour {
 
     void setupMainConversations()
     {
+        /*
         Conversation donkeyConvo = new Conversation();
 
         string[] donkeyMessages = new string[] {
@@ -280,7 +281,7 @@ public class StoryState : MonoBehaviour {
         };
 
         tkDonkey.conversation = donkeyConvo;
-
+        */
         Conversation catConvo = new Conversation();
 
 
@@ -296,7 +297,7 @@ public class StoryState : MonoBehaviour {
             "8 Seems like enough! Let's go.",
             "9 Hmm, There's still a lot to catch. I'm going to stay here.",
             " ",
-            "11 I think I'd made a good musician.",
+            "11 I think I'll make a good musician.",
             "12 I'll catch all these mice.. one day..."
         };
 
@@ -318,6 +319,8 @@ public class StoryState : MonoBehaviour {
         };
 
         tkCat.conversation = catConvo;
+
+
 
 
     }

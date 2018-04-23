@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
     public float maxVelocityChange = 10.0f;
     public float activationDistance;
-    public int characterNumber; // Donkey = 0, Dog = 1, Cat = 2, Chicken = 3    (These can be easily changed)
+    public int characterNumber; // Donkey = 0, Cat = 1, Dog = 2, Chicken = 3    (These can be easily changed)
 
     // amount to increase raycast by
     public float yCast;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true;
         }
     }
-
+    
     private void OnCollisionStay(Collision collision) {
         if (!(isGrounded) && (collision.gameObject.tag == "Ground")) {
             OnCollisionEnter(collision);
@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour {
             // manual gravity?
             rb.AddForce(new Vector3(0, -gravity * rb.mass, 0));
 
+            /*
             if (Input.GetKeyDown(KeyCode.E)) {
 
                 //disable the sphere collider for use when checking hints, else the raycast will hit it
@@ -96,9 +97,21 @@ public class PlayerController : MonoBehaviour {
                 //reenable the sphere collider for use when checking hints
                 hintCollider.gameObject.SetActive(true);
             }
+            */
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.E) && (other.gameObject.GetComponent<Talkable>() != null))
+        {
+            other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
+            tk = other.gameObject.GetComponent<Talkable>();
+            tk.Interact();
+            GameState.isTalking = true;
+            GameState.conversationUI.SetActive(true);
+        }
+    }
 
     void Jump() {
         // this will work like an arc
@@ -106,6 +119,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+
+
+        if (GameState.activeCharacter != characterNumber){
+            // if not active rotate to player
+            transform.LookAt(new Vector3(GameState.GetActiveCharacter().transform.position.x, transform.position.y, GameState.GetActiveCharacter().transform.position.z));
+        }
+
 
         if (GameState.isTalking && GameState.activeCharacter == characterNumber) {
             if (Input.GetKeyDown(KeyCode.Alpha1)) {
@@ -116,8 +136,9 @@ public class PlayerController : MonoBehaviour {
                 // pick option 2
                 tk.setReply(2);
             }
-            else if (Input.GetKeyDown(KeyCode.E) && GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("TalkAnim")) {
+            else if (Input.GetKeyDown(KeyCode.E) && (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("CatTalkAnim") || GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("DonkeyTalkAnim"))) {
                 // Cancel conversation
+                print("e");
                 tk.setReply(0);
             }
         }
