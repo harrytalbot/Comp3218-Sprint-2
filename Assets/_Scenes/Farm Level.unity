@@ -4813,55 +4813,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 441800102}
   m_Mesh: {fileID: 4300002, guid: 8f7b31d29216f0c4d95b8a78535aba59, type: 3}
---- !u!1 &445466445 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 170560, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-  m_PrefabInternal: {fileID: 2027726866}
 --- !u!4 &445466446 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+  m_PrefabParentObject: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43,
+    type: 2}
   m_PrefabInternal: {fileID: 2027726866}
---- !u!114 &445466447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 445466445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06794c83510956840802fd4c66194cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  degreesPerSecond: 90
-  amplitude: 0.5
-  frequency: 1
---- !u!136 &445466448
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 445466445}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 3
-  m_Height: 20
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &445466449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 445466445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10979a15f066479429c9c24f084d01c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPickup: 1
-  stayAfterPickup: 0
-  hint: (Q) to Pick Up.
 --- !u!1 &464152869
 GameObject:
   m_ObjectHideFlags: 0
@@ -7871,6 +7827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c98266707c77443a0fb21de8dd2884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miceToCatch: 0
 --- !u!4 &840214244
 Transform:
   m_ObjectHideFlags: 0
@@ -12707,7 +12664,7 @@ MonoBehaviour:
     - message: 10
       replies: []
       repliesIndex: 
-    - message: The Key to the gate might be near the pond, have a look!
+    - message: 11 The Key to the gate might be near the pond, have a look!
       replies:
       - Thanks!
       repliesIndex: fdffffff
@@ -14980,7 +14937,7 @@ Prefab:
     - target: {fileID: 114391944457159200, guid: 6b1755295c9848540af50522adf5cdc3,
         type: 2}
       propertyPath: SceneName
-      value: Main
+      value: Main Level
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b1755295c9848540af50522adf5cdc3, type: 2}
@@ -14992,6 +14949,141 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1401159452}
     m_Modifications:
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].replies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].replies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[2].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[3].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[4].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].replies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[6].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[8].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[10].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[11].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[12].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[13].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[14].replies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].repliesIndex.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].repliesIndex.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[2].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[3].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[4].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].repliesIndex.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[6].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[8].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[10].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[11].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[12].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[13].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[14].repliesIndex.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4589750324236966, guid: c0e246e912798fb4180c81df73be9a2a, type: 2}
       propertyPath: m_LocalPosition.x
       value: -14.57
@@ -15027,6 +15119,251 @@ Prefab:
     - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
         type: 2}
       propertyPath: conversation.nodes.Array.data[8].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].message
+      value: 0 Donkey, I'm afraid I have some bad news to tell you. I've been out
+        on the fields today and the crop is looking terrible. I don't know what's
+        gone wrong, and it's nearly time for harvest which only worries me more.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].replies.Array.data[0]
+      value: What can we do? Surely it's not too late to get out there and put in
+        extra work.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].replies.Array.data[1]
+      value: Well, you did spend most of the summer lying around in the sun, doing
+        nothing.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].repliesIndex.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[0].repliesIndex.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].message
+      value: 1 Well that's the bad news. It's not what we can do, it's what I can
+        do. You're old and tired, and not much use in the fields any more...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].replies.Array.data[0]
+      value: 'What are you trying to say? '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].replies.Array.data[1]
+      value: 'About time I retired! '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].repliesIndex.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[1].repliesIndex.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[2].message
+      value: 2 I think you mean you spent most of the summer lying around doing nothing,
+        you lazy mule. I needed your help and now... I'm going to have to sell you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[2].replies.Array.data[0]
+      value: Selling?! Surely there's no need for that!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[2].repliesIndex.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[3].message
+      value: 3 There's a farm over the Hill that has offered me good money for your,
+        considering your age. I have bills due and so you'll be leaving tomorrow.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[3].replies.Array.data[0]
+      value: So just like that, you're getting rid of me?
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[3].repliesIndex.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[4].message
+      value: '4 That''s not what I meant... I''m going to have to sell you. I need
+        the money fast. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[4].replies.Array.data[0]
+      value: So just like that, you're getting rid of me?
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[4].repliesIndex.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].message
+      value: 5 Unfortunately it's my only option.. All the other livestock will make
+        me money over time - the sheep, chickens and cows. You just cost me more and
+        more
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].replies.Array.data[0]
+      value: I'd make more money for you if I wasn't so old!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].replies.Array.data[1]
+      value: I'd make money for you if I cared about this farm more!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].repliesIndex.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[5].repliesIndex.Array.data[1]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[6].message
+      value: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[6].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[6].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[7].message
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[8].message
+      value: 8 Have you seen my Keys anywhere? they've been missing for days now...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[8].replies.Array.data[0]
+      value: Nope, Sorry!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[9].message
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[10].message
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[10].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[10].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[11].message
+      value: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[11].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[11].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[12].message
+      value: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[12].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[12].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[13].message
+      value: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[13].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[13].repliesIndex.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[14].message
+      value: 6 I know, and I hope you understand this wasn't an easy decision for
+        me to make. Now, I need to go and repair my car...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[14].replies.Array.data[0]
+      value: I better go and say my goodbyes to the others then.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114456167574157126, guid: c0e246e912798fb4180c81df73be9a2a,
+        type: 2}
+      propertyPath: conversation.nodes.Array.data[14].repliesIndex.Array.data[0]
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -18245,68 +18582,40 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1185129577}
     m_Modifications:
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalPosition.x
       value: 47.63
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.94
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalPosition.z
       value: 1.15
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+    - target: {fileID: 4902993833309128, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 170560, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_Name
-      value: Gate Key
-      objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462124, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 170560, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: cc5de5e674870ca479a40105f80555ad, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: f11caacdeef86b14f9f09166e508ae43, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2048793060
 GameObject:

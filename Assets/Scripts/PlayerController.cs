@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
     public float activationDistance;
     public int characterNumber; // Donkey = 0, Dog = 1, Cat = 2, Chicken = 3    (These can be easily changed)
 
+    // amount to increase raycast by
+    public float yCast;
+
     private float gravity = 10;
 
     private bool isGrounded;
@@ -79,8 +82,8 @@ public class PlayerController : MonoBehaviour {
                 hintCollider.gameObject.SetActive(false);
                 
                 RaycastHit hit;
-                Debug.DrawRay(transform.position, transform.forward*10, Color.green);
-                if (Physics.Raycast(transform.position, transform.forward*10, out hit, activationDistance)) {
+                Debug.DrawRay(transform.position + new Vector3(0, yCast, 0), transform.forward*10, Color.green);
+                if (Physics.Raycast(transform.position + new Vector3(0, yCast, 0), transform.forward*10, out hit, activationDistance)) {
                     tk = hit.collider.gameObject.GetComponent<Talkable>();                    
                     if (tk != null) {
 

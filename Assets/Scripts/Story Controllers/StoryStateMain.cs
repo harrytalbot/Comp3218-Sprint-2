@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoryState : MonoBehaviour {
+public class StoryStateMain : MonoBehaviour {
 
     // each thing that is talkable has a status defining how far into conversation(s) the player has got.
     int FarmerStatus, SheepStatus, CatStatus;

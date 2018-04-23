@@ -22,13 +22,19 @@ public class Conversation {
         // the replies index for this message
         public int[] repliesIndex;
 
+        public ConversationNode(string message, int[] repliesIndex, string[] replies)
+        {
+            this.message = message;
+            this.repliesIndex = repliesIndex;
+            this.replies = replies;
+        }
 
         public string getMessage()
         {
             return message;
         }
 
-        public int[] getReplyPointer()
+        public int[] getReplyPointers()
         {
             return repliesIndex;
         }

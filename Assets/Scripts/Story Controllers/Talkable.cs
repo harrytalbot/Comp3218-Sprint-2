@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Talkable : MonoBehaviour {
 
@@ -41,7 +43,7 @@ public class Talkable : MonoBehaviour {
         hintPanel = GameObject.FindGameObjectWithTag("Hint");
 
         // find out where to start the conversation from
-        setStartPoint(storyState.GetStartPoint(talkableName));
+        //setStartPoint(storyState.GetStartPoint(talkableName));
 
     }
 
@@ -51,14 +53,16 @@ public class Talkable : MonoBehaviour {
         {
             convPoint = convNextPoint;
             dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
-            int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
+            int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
             string[] replies = conversation.getNodes()[convNextPoint].getReplies();
             buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
             if (replies.Length > 1)
             {
                 buttonTwo.SetActive(true);
-                buttonTwoText.text = (replies[1] + "(" + replyPointers[1] + ")");
-            } else
+                buttonTwoText.GetComponentInChildren<Text>().text = (replies[1]);
+                //buttonTwoText.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+            }
+            else
             {
                 buttonTwo.SetActive(false);
             }
@@ -72,13 +76,14 @@ public class Talkable : MonoBehaviour {
     public void Interact() {
         dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
         nameText.text = talkableName;
-        int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointer();
+        int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
         string[] replies = conversation.getNodes()[convNextPoint].getReplies();
         buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
         if (replies.Length > 1)
         {
             buttonTwo.SetActive(true);
-            buttonTwoText.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
+            buttonTwoText.GetComponentInChildren<Text>().text = (replies[1]);
+            //buttonTwoText.GetComponentInChildren<Text>().text = (replies[1] + "(" + replyPointers[1] + ")");
         }
         else
         {
@@ -106,11 +111,25 @@ public class Talkable : MonoBehaviour {
         reply--;
 
         // check the user hasn't selecetd 2 when there is only one reply
-        if (reply+1 > conversation.getNodes()[convPoint].getReplies().Length)
+        if (reply+1 > conversation.getNodes()[convPoint].getReplies().Length) 
             return;
 
+        // if the user has selected the second option and there is no reply index for it, this
+        // acts as cancelling the conversation
+        if (reply == 1 && conversation.getNodes()[convPoint].getReplyPointers().Length == 1)
+        {
+            // conversation has been cancelled. kill it here rather than waiting for update. don't change convo start point
+            GameState.isTalking = false;
+            dialoguePanel.SetActive(false);
+            convNextPoint = convEntryPoint;
+            // but change the hint text back to what it was pre-conversation
+            hintText.text = hint;
+            return;
+        }
 
-        int replyIndex = conversation.getNodes()[convPoint].getReplyPointer()[reply];
+        int replyIndex = conversation.getNodes()[convPoint].getReplyPointers()[reply];
+
+        print(replyIndex);
 
         if (replyIndex < 0)
         {
@@ -124,39 +143,10 @@ public class Talkable : MonoBehaviour {
             hintText.text = hint;
 
             // tell the story state the conversation has finished so it keeps track
-            convNextPoint = storyState.UpdateStoryProgress(talkableName, -replyIndex);
+            convNextPoint = storyState.UpdateStoryProgress(talkableName, SceneManager.GetActiveScene().name, - replyIndex);
             convEntryPoint = convNextPoint;
             return;
         }
-
-
-        /*
-        if (replyIndex == -1)
-        {
-            // conversation has ended. kill it here rather than waiting for update.
-            GameState.isTalking = false;
-            dialoguePanel.SetActive(false);
-            convNextPoint = convPoint;
-            // but change the hint text back to what it was pre-conversation
-            hintText.text = hint;
-
-            // tell the story state the conversation has finished so it keeps track
-            storyState.UpdateStoryProgress(this);
-
-            return;
-        }
-        
-        else if (isPickUp && replyIndex == pickUpIndex) {
-            GameState.isTalking = false;
-            dialoguePanel.SetActive(false);
-            convNextPoint = convPoint;
-            GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
-            if (!stayAfterPickUp) {
-                gameObject.SetActive(false);
-            }
-        }
-        */
-
         else
         {
             //conversation still going . update the response so fixedUpdate will see the difference
@@ -173,7 +163,6 @@ public class Talkable : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
         if (GameState.isTalking)
         {
             hintPanel.SetActive(true);
