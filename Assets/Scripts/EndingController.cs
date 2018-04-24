@@ -59,11 +59,11 @@ public class EndingController : MonoBehaviour {
             else if (SceneManager.GetActiveScene().name.Equals("ShedCaughtEnding"))
                 SceneManager.LoadScene("Shed Level");
             else if (SceneManager.GetActiveScene().name.Equals("NoCompanionEnding"))
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Menu");
             else if (SceneManager.GetActiveScene().name.Equals("HouseVictoryEnding"))
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Menu");
             else if (SceneManager.GetActiveScene().name.Equals("ShedVictoryEnding"))
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("Menu");
         }
 	}
 }

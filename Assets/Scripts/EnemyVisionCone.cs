@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyVisionCone : MonoBehaviour {
 
@@ -112,6 +113,10 @@ public class EnemyVisionCone : MonoBehaviour {
                 enemyObject.GetComponent<NavMeshAgent>().SetDestination(enemyObject.transform.position);
                 enemyObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
                 material.color = Color.black;
+                if (SceneManager.GetActiveScene().name.Contains("Shed"))
+                    Initiate.Fade("ShedCaughtEnding", Color.black, 1);
+                else if (SceneManager.GetActiveScene().name.Contains("House"))
+                    Initiate.Fade("HouseCaughtEnding", Color.black, 1);
             }
         }
         else if (distracted && !alerted) {

@@ -26,6 +26,7 @@ public class GameState : MonoBehaviour {
 
     public bool debug;
     public static bool firstRun = false;
+    public float delayTime;
 
     public GameObject[] tempObjects;
     
@@ -65,6 +66,8 @@ public class GameState : MonoBehaviour {
             if (playerObjects[i] != null) {
                 playerObjects[i].GetComponent<PlayerController>().mainCam.enabled = false;
                 playerObjects[i].GetComponentInChildren<AudioListener>().enabled = false;
+                if (SceneManager.GetActiveScene().name.Equals("Shed Level"))
+                    playerObjects[i].SetActive(false);
             }
         }
         GameObject player = playerObjects[initialCharacter];
@@ -93,6 +96,11 @@ public class GameState : MonoBehaviour {
             charactersGot[2] = character3Active;
             charactersGot[3] = character4Active;
         }
+        if (SceneManager.GetActiveScene().name.Equals("Shed Level")) {
+            playerObjects[0].SetActive(charactersGot[0]);
+            playerObjects[1].SetActive(charactersGot[1]);
+            playerObjects[2].SetActive(charactersGot[2]);
+        }
         firstRun = false;
 	}
 
@@ -102,7 +110,7 @@ public class GameState : MonoBehaviour {
                 SwapCharacter(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2) && !(activeCharacter == 1) && charactersGot[1]) {
-                
+
                 SwapCharacter(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3) && !(activeCharacter == 2) && charactersGot[2]) {
@@ -114,6 +122,21 @@ public class GameState : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.Alpha0)) {
                 UnlockCharacter(0); UnlockCharacter(1); UnlockCharacter(2); UnlockCharacter(3);
             }
+        }
+        if (SceneManager.GetActiveScene().name.Contains("Shed") || SceneManager.GetActiveScene().name.Contains("House")) {
+            bool done = true;
+            foreach (GameObject enemy in enemies) {
+                if (enemy.GetComponentInChildren<EnemyVisionCone>().enabled == true)
+                    done = false;
+            }
+        if (done && delayTime > 0)
+            delayTime -= Time.deltaTime;
+        else if (done) {
+                if (SceneManager.GetActiveScene().name.Contains("Shed"))
+                    Initiate.Fade("ShedVictoryEnding", Color.black, 1);
+                else if (SceneManager.GetActiveScene().name.Contains("House"))
+                    Initiate.Fade("HouseVictoryEnding", Color.black, 1);
+            }            
         }
     }
 
