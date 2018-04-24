@@ -167,6 +167,7 @@ public class StoryState : MonoBehaviour {
                     }
                     else
                     {
+                        print("enough");
                         CatStatus = 2;
                     }
                 }
@@ -275,6 +276,9 @@ public class StoryState : MonoBehaviour {
                 {
                     CatStatus = 2;
                 }
+
+                tkCat.setStartPoint(CatStarts[CatStatus]);
+
             }
 
         }

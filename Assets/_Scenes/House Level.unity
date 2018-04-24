@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -12280,6 +12280,23 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 2}
   m_PrefabInternal: {fileID: 628547767}
+--- !u!1 &629008827 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1978334719400146, guid: 1dd72950181f8be498d96c06a617adff,
+    type: 2}
+  m_PrefabInternal: {fileID: 888290194}
+--- !u!135 &629008828
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 629008827}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.67, z: 0}
 --- !u!4 &631279072 stripped
 Transform:
   m_PrefabParentObject: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 2}
@@ -17264,12 +17281,24 @@ MeshCollider:
   m_GameObject: {fileID: 888290195}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 0faaca137bc5a794098e6b71f8bb22f6, type: 3}
+--- !u!135 &888290198
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 888290195}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 1.27, z: 1.29}
 --- !u!114 &888290202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29543,6 +29572,7 @@ GameObject:
   - component: {fileID: 1513756255}
   - component: {fileID: 1513756260}
   - component: {fileID: 1513756256}
+  - component: {fileID: 1513756261}
   m_Layer: 0
   m_Name: Player 2 - Cat
   m_TagString: Player
@@ -29641,6 +29671,18 @@ MonoBehaviour:
   bucket: 0
   otherStuff1: 0
   otherStuff2: 0
+--- !u!135 &1513756261
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513756254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 1.46, z: 1.34}
 --- !u!1001 &1524786112
 Prefab:
   m_ObjectHideFlags: 0
