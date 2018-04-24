@@ -2969,7 +2969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c98266707c77443a0fb21de8dd2884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miceToCatch: -1
+  miceToCatch: 3
   hasCat: 0
   hasTiger: 0
 --- !u!1 &578032797
