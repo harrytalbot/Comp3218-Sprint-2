@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.450261, g: 0.50028825, b: 0.57535607, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7828,6 +7828,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miceToCatch: 0
+  hasCat: 0
+  hasTiger: 0
 --- !u!4 &840214244
 Transform:
   m_ObjectHideFlags: 0
@@ -10125,7 +10127,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1858153951710108, guid: e2020f88ffb5fad4982718764c2b257f, type: 2}
       propertyPath: m_Name
-      value: Player 1 - donkey
+      value: Player 1 - Donkey
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2020f88ffb5fad4982718764c2b257f, type: 2}
