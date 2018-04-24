@@ -29,8 +29,8 @@ public class Collectable : MonoBehaviour {
         {
             if (isPickup)
             {
-                GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
                 storyState.collected(gameObject.name);
+                GameState.GetActiveCharacter().GetComponent<Inventory>().Add(gameObject.name);
                 if (!stayAfterPickup)
                 {
                     gameObject.SetActive(false);

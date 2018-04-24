@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour {
@@ -179,7 +180,15 @@ public class GameState : MonoBehaviour {
             if (inventoryIcons[i] != null) {
                 if (inventory.GotItem(inventoryIcons[i].name)) {
                     inventoryIcons[i].SetActive(true);
+                    if (GameObject.FindGameObjectWithTag("StoryState").GetComponent<StoryState>().miceCaught > 0)
+                    {
+                        if (inventoryIcons[i].GetComponentInChildren<Text>() != null)
+                            inventoryIcons[i].GetComponentInChildren<Text>().text = " = " + GameObject.FindGameObjectWithTag("StoryState").GetComponent<StoryState>().miceCaught.ToString();
+                    }
                 }
+
+               
+
             }
         }
     }

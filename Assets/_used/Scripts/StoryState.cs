@@ -35,7 +35,7 @@ public class StoryState : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public int miceToCatch;
-    private int miceCaught = 0;
+    public int miceCaught = 0;
 
     public bool hasCat, hasTiger;
 
@@ -484,7 +484,7 @@ public class StoryState : MonoBehaviour {
         duckConvo.nodes = new Conversation.ConversationNode[]{
             new Conversation.ConversationNode(duckMessages[0], new int[] { 1 }, new string[] { "You're pretty well spoken for a duck. Im actually just passing through.", "I think I'm fine, actually." }),
             new Conversation.ConversationNode(duckMessages[1], new int[] { 2 }, new string[] { "Just a small Farm, down the road. I've left and am heading to the City."}),
-            new Conversation.ConversationNode(duckMessages[2], new int[] { -3 }, new string[] { "Well, I find more travellers I'll come back to you.", }),
+            new Conversation.ConversationNode(duckMessages[2], new int[] { -3 }, new string[] { "Well, If I find more travellers I'll come back to you.", }),
             new Conversation.ConversationNode(duckMessages[3], new int[] {   }, new string[] {}),
             new Conversation.ConversationNode(duckMessages[4], new int[] { 5 }, new string[] { "You're pretty well spoken for a duck. Im actually just passing through.", "I think I'm fine, actually." }),
             new Conversation.ConversationNode(duckMessages[5], new int[] { 6 }, new string[] { "Just a small Farm, down the road. I've left and am heading to the City."}),
