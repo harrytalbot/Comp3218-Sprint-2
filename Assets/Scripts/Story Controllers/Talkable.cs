@@ -55,7 +55,7 @@ public class Talkable : MonoBehaviour {
             dialogueText.text = conversation.getNodes()[convNextPoint].getMessage();
             int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
             string[] replies = conversation.getNodes()[convNextPoint].getReplies();
-            buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
+            buttonOneText.GetComponentInChildren<Text>().text = (replies[0]);
             if (replies.Length > 1)
             {
                 buttonTwo.SetActive(true);
@@ -79,7 +79,7 @@ public class Talkable : MonoBehaviour {
         nameText.text = talkableName;
         int[] replyPointers = conversation.getNodes()[convNextPoint].getReplyPointers();
         string[] replies = conversation.getNodes()[convNextPoint].getReplies();
-        buttonOneText.GetComponentInChildren<Text>().text = (replies[0] + "(" + replyPointers[0] + ")");
+        buttonOneText.GetComponentInChildren<Text>().text = (replies[0]);
         if (replies.Length > 1)
         {
             buttonTwo.SetActive(true);
