@@ -9,7 +9,7 @@ public class KnockOverObject : MonoBehaviour {
     public GameObject hintUI;
     public string hintUIText;
     public string wrongCharacterText;
-    public string characterToUseThis = "Horse";
+    public string characterToUseThis;
     public GameObject[] alertedNPCs;
     public Vector3[] alertedLocations;
     public float delay;
@@ -35,6 +35,7 @@ public class KnockOverObject : MonoBehaviour {
 
     private void OnTriggerStay(Collider other) {
         // if the other collider is the player, the user presses e and they have the key
+        Debug.Log(other.name);
         if (Input.GetKeyDown(KeyCode.E) && other.gameObject.tag == "Player" && !knockedOver && other.gameObject.name.Contains(characterToUseThis)) {
             // Knock over
             knockedOver = true;

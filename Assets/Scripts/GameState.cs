@@ -17,14 +17,15 @@ public class GameState : MonoBehaviour {
     public static int activeCharacter;
     public static bool isTalking;
 
-    public bool character1Active = false;
-    public bool character2Active = false;
-    public bool character3Active = false;
-    public bool character4Active = false;
+    public bool character1Active;
+    public bool character2Active;
+    public bool character3Active;
+    public bool character4Active;
 
     public bool canControlOtherCharacters = false;
 
     public bool debug;
+    public static bool firstRun = false;
 
     public GameObject[] tempObjects;
     
@@ -38,7 +39,7 @@ public class GameState : MonoBehaviour {
         else if (initialCharacter == 3)
             character4Active = true;
 
-        if (SceneManager.GetActiveScene().name.Contains("House")) { 
+        if (SceneManager.GetActiveScene().name.Contains("House") || SceneManager.GetActiveScene().name.Contains("Shed")) { 
             enemies = GameObject.FindGameObjectsWithTag("Enemy"); 
         } 
 
@@ -86,12 +87,13 @@ public class GameState : MonoBehaviour {
             charactersGot[2] = true;
             charactersGot[3] = true;
         }   
-        else {
+        else if (firstRun) {
             charactersGot[0] = character1Active;
             charactersGot[1] = character2Active;
             charactersGot[2] = character3Active;
             charactersGot[3] = character4Active;
         }
+        firstRun = false;
 	}
 
     void Update() {
@@ -100,6 +102,7 @@ public class GameState : MonoBehaviour {
                 SwapCharacter(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2) && !(activeCharacter == 1) && charactersGot[1]) {
+                
                 SwapCharacter(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3) && !(activeCharacter == 2) && charactersGot[2]) {

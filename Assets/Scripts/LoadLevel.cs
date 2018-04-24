@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadLevel : MonoBehaviour {
 
-    public string SceneName;
-
     // Use this for initialization
     void Start() {
 
@@ -20,9 +18,20 @@ public class LoadLevel : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        int count = 0;
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
+            GameObject[] characters = GameState.GetCharacters();
+            foreach (GameObject current in characters) {
+                if (GameState.IsUnlocked(current))
+                    count++;
+            }
+            if (count == 4)
+                SceneManager.LoadScene("House Level", LoadSceneMode.Single);
+            else if (count == 1)
+                Initiate.Fade("NoCompanionEnding", Color.black, 1);
+            else
+                SceneManager.LoadScene("Shed Level", LoadSceneMode.Single);
         }
     }
 }
