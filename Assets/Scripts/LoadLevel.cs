@@ -19,7 +19,7 @@ public class LoadLevel : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         int count = 0;
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && SceneManager.GetActiveScene().name.Equals("Main Level"))
         {
             GameObject[] characters = GameState.GetCharacters();
             foreach (GameObject current in characters) {
@@ -33,5 +33,7 @@ public class LoadLevel : MonoBehaviour {
             else
                 SceneManager.LoadScene("Shed Level", LoadSceneMode.Single);
         }
+        else
+            SceneManager.LoadScene("Main Level", LoadSceneMode.Single);
     }
 }
